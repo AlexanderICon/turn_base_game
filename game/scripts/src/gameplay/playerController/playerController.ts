@@ -1,4 +1,4 @@
-import { Singleton } from "../../core/Singleton/Singleton";
+import { Singleton } from "../../core/singleton/singleton";
 
 export namespace playerController {
 

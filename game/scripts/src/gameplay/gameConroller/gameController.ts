@@ -1,5 +1,5 @@
-import { EventEmitter } from "../../core/EventEmit/EventEmit";
-import { Singleton } from "../../core/Singleton/Singleton";
+import { EventEmitter } from "../../core/eventEmit/eventEmit";
+import { Singleton } from "../../core/singleton/singleton";
 
 interface emitter {
     'onDefeat': { controller: gameController.controller },
