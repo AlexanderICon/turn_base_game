@@ -1,6 +1,8 @@
 import { Debug } from './Debug';
 import { GameConfig } from './GameConfig';
 import { XNetTable } from '../utils/xnet-table';
+import { playerController } from '../gameplay/playerController/playerController';
+import { app } from '../gameplay/app/app';
 
 declare global {
     interface CDOTAGameRules {
@@ -8,6 +10,24 @@ declare global {
         XNetTable: XNetTable;
     }
 }
+
+ListenToGameEvent('player_connect_full', (event) => {
+    const player = PlayerResource.GetPlayer(event.PlayerID);
+    if (!player) return
+    playerController.instance.array.push(player) // 添加玩家统一管理
+}, null)
+
+/**
+ * 监听游戏状态变化
+ * 9(场景设置)->2(自定义游戏设置)->3(玩家选择英雄)->10(进入游戏)->4(英雄创建/选择)->5(游戏正式开始)
+ */
+ListenToGameEvent('dota_game_state_change', (event) => {
+    print('dota_game_state_change', event.new_state)
+
+    if (event.new_state == GameState.STRATEGY_TIME && IsServer()) {
+        app.App.instance() // 这里作为游戏入口 只能在服务端运行
+    }
+}, undefined)
 
 /**
  * 这个方法会在game_mode实体生成之后调用，且仅调用一次
