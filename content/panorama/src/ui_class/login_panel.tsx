@@ -5,6 +5,7 @@ import TButton from "./common/textButton";
 import ListPanel from "./common/listPanel";
 import useToggle from "../hooks/useToggle";
 
+
 interface CharacterCardProps {
     hero_name:string,
     //chooseCharacter:() =>{}
@@ -41,6 +42,7 @@ const CharacterCard:FC<CharacterCardProps & PanelAttributes> = (props) =>{
         <DOTAScenePanel 
             ref={scenePnl}
             className="CardShow"
+            environment="full_body_right_side"
             >
 
             </DOTAScenePanel>

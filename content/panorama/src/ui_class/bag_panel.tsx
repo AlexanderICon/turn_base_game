@@ -1,13 +1,16 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { onXNetTableEvent, useXNetTableEvent, useXNetTableKey } from "../hooks/useXNetTable";
 import { CharacterAttributeTable } from "../ui_table/characterAttribute";
 import { PanelAttributes, useNetTableValues } from "react-panorama-x";
 import ListPanel from "./common/listPanel";
 import ItemButton from "./common/itemButton";
+import useToggle from "../hooks/useToggle";
 
 
 const BagPanel:FC<PanelAttributes> = (props) =>{
+
     const playerId = Game.GetLocalPlayerID()
+    const [visible,toggleVisible,setVisible] = useToggle(props.visible)
 
     const [bagList,setBagList] = useState(new Array);
 
@@ -16,19 +19,37 @@ const BagPanel:FC<PanelAttributes> = (props) =>{
     useMemo(() =>{
          setBagList([1,2,3,4,5,6,7])
     },[])
+    useEffect(() =>{
+        if(props.visible!=undefined){
+            setVisible(props.visible);
+        }else{
+            setVisible(false)
+        }
+    },[props.visible])
 
-    function clickItem(pnl:Panel){
-        console.log(pnl.Data.apply);
-    }
-
+    // function clickItem(pnl:Panel){
+    //     console.log(pnl.Data.apply);
+    // }
+    //console.log('测试初始显示',visible,props.visible)
     return(<Panel 
         {...props}
+        visible={visible}
         className="BagPanel"
         style={{
             verticalAlign:`center`,
             horizontalAlign:`center`,
         }}
     >
+        <Button className="CloseBtn" 
+        // style={{
+        //     horizontalAlign:'right',
+        //     width:`60px`,
+        //     height:`60px`,
+        //     backgroundColor:'#ff0000'
+        // }} 
+        onactivate={toggleVisible}
+        ></Button>
+
         <Label text={'背包'}
             style={{
                 y:`10px`,
@@ -63,7 +84,7 @@ const BagPanel:FC<PanelAttributes> = (props) =>{
             <Button
                 className="EquipSlot6"
             ></Button>
-            <Button
+            {/* <Button
                 className="EquipSlot7"
             ></Button>
             <Button
@@ -71,7 +92,7 @@ const BagPanel:FC<PanelAttributes> = (props) =>{
             ></Button>
             <Button
                 className="EquipSlot9"
-            ></Button>
+            ></Button> */}
         </Panel>
         <ListPanel 
             id='BagList'
@@ -80,9 +101,8 @@ const BagPanel:FC<PanelAttributes> = (props) =>{
             renderFunction={(idx,dt) =>{
                 return <ItemButton
                     itemName="test_weapon"
-                    onactivate={clickItem}
+                    
                 >
-
                 </ItemButton>
             }}
             style={{

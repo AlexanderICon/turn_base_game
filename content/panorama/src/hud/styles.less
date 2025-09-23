@@ -3,6 +3,7 @@
 
 @import "../ui_class/login_panel.less";
 @import "../ui_class/bag_panel.less";
+@import "../ui_class/shopPanel/equip_shop_panel.less";
 
 .root {
     width: 100%;
@@ -50,4 +51,27 @@
     background-color: gradient(linear, 0% 100%, 100% 100%, from(rgb(73, 73, 73)), to(#9b9898));
     flow-children: right-wrap;
     overflow: scroll;
+}
+
+.CloseBtn {
+    horizontal-align: right;
+    vertical-align: top;
+    width: 60px;
+    height: 60px;
+    z-index: 100;
+    background-color: gradient(linear, 0% 100%, 100% 100%, from(rgb(145, 138, 138)), to(#fd0505));
+    &:hover{
+        opacity: 0.9;
+    }
+    &:active{
+        opacity: 0.7;
+    }
+}
+
+.TopInfoPanel {
+    horizontal-align: center;
+    background-color: gradient(linear, 50% 100%, 100% 50%, from(#838181), to(#837474));
+    height: 12%;
+    min-height: 120px;
+    width: 60%;
 }

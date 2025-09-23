@@ -56,16 +56,7 @@ const PlayerAttriPanel:FC<PanelAttributes> = (props) =>{
         
     },[])
 
-    useXNetTableEvent('local_player_info','attribute',(data) =>{
-        console.log('xNet服务端事件消息2')
-        console.log(data)
-        // const testAttri = CharacterAttributeTable.GetData('npc_dota_hero_phoenix')
-        
-        // for(const[k,v] of Object.entries(testAttri)){
-        //     console.log('测试客户端读表打印',k,v)
-        // }
-    })
-
+    
     return(<Panel
         {...props}
         className="NormalPanel"
