@@ -21,5 +21,6 @@ export namespace app {
         static instance() {
             return Singleton.Get<App>('appController', App);
         }
+        abc;
     }
 }
