@@ -21,6 +21,7 @@ import { onXNetTableEvent } from '../hooks/useXNetTable';
 import MainPanel from '../ui_class/main_panel';
 import LoginPanel from '../ui_class/login_panel';
 import DifficultChoosePanel from '../ui_class/diffcult_choose_panel';
+import HeroChoosePanel from '../ui_class/hero_choose_panel';
 
 // 注册自定义按键
 registerCustomKey('D');
@@ -52,8 +53,9 @@ const Root: FC = () => {
         <MainPanel>
 
         </MainPanel>
-        <LoginPanel></LoginPanel>
-        <DifficultChoosePanel></DifficultChoosePanel>
+        {/* <LoginPanel></LoginPanel>
+        <DifficultChoosePanel></DifficultChoosePanel> */}
+        <HeroChoosePanel></HeroChoosePanel>
     </>
     )
 };

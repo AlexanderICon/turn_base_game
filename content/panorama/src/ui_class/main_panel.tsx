@@ -176,7 +176,7 @@ const MainPanel:FC = () =>{
         ></TButton>
 
         <TopInfoPanel></TopInfoPanel>
-        <CheckReadyPanel></CheckReadyPanel>
+        {/* <CheckReadyPanel></CheckReadyPanel> */}
     </>)
 }
 
