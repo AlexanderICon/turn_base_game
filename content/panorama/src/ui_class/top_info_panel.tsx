@@ -15,7 +15,6 @@ const TopInfoPanel:FC<PanelAttributes> = (props) =>{
     },1000)
 
     
-
     return(<Panel
         className="TopInfoPanel"
     >
