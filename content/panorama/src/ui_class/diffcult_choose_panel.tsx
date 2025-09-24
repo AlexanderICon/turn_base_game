@@ -1,8 +1,8 @@
-import { FC, useContext, useMemo, useState } from "react";
+import { FC, useContext, useEffect, useMemo, useState } from "react";
 import useToggle from "../hooks/useToggle";
 import { EventEmitter } from "events";
 import ListPanel from "./common/listPanel";
-import { useGameEvent } from "react-panorama-x";
+import { useGameEvent, useNetTableValues } from "react-panorama-x";
 import TButton from "./common/textButton";
 
 const DifficultChoosePanel:FC = () => {
@@ -18,6 +18,13 @@ const DifficultChoosePanel:FC = () => {
             setVisible(true);
         }
     },[])
+
+    const diffValue = useNetTableValues('custom_net_table_1')
+
+    useEffect(() =>{
+        setVisible(true)
+        setDiffArray([1,2,3])
+    },[diffValue])
 
     function chooseDiff(){
         GameEvents.SendCustomGameEventToServer('c2s_difficult_event',{event_key : 'choose_difficult',event_data:{
@@ -71,7 +78,13 @@ const DifficultChoosePanel:FC = () => {
 
             </ListPanel>
         </Panel>
-        
+        <TButton
+            text={'确认'}
+        >
+            
+        </TButton>
+
+
     </Panel>)
 }
 
