@@ -1,47 +1,62 @@
-import { EventEmitter } from "../../core/eventEmit/eventEmit";
-import { Singleton } from "../../core/singleton/singleton";
-
-interface emitter {
-    'onDefeat': { controller: gameController.controller },
-    'onVictory': { controller: gameController.controller }
-}
+import { Singleton } from '../../core/singleton/singleton';
+import { eventEmitterBase } from '../eventEmitterBase/eventEmitterBase';
+import { playerController } from '../playerController/playerController';
 
 export namespace gameController {
     export enum eStatus {
         init,
         runing,
         victory,
-        defeat
+        defeat,
     }
 
-    export class controller {
-        private _status: eStatus = eStatus.init // 当前游戏状态
-        private _emit: EventEmitter<emitter> = new EventEmitter()
+    interface emitter {
+        onDefeat: {};
+        onVictory: {};
+    }
+
+    class controller extends eventEmitterBase<emitter> {
+        private _status: eStatus = eStatus.init; // 当前游戏状态
+
+        constructor() {
+            super();
+        }
 
         public set status(v: eStatus) {
             this._status = v;
         }
 
         public get status(): eStatus {
-            return this._status
+            return this._status;
         }
 
-        public get event(): EventEmitter<emitter> {
-            return this._emit
+        defeat() {
+            this._status = eStatus.defeat;
+        }
+
+        victory() {
+            this._status = eStatus.victory;
+
+            //todo : 游戏胜利 开始结算游戏数据
+        }
+
+        selectEvent() {
+            const player = playerController.getAllPlayers().sort((a, b) => a.GetPlayerID() - b.GetPlayerID())[0];
+            // todo: 玩家选择难度
+        }
+
+        start() {
+            this._status = eStatus.runing;
+
+            // 注册事件
+            this.emitter.on('onDefeat', this.defeat);
+            this.emitter.on('onVictory', this.victory);
+
+            this.selectEvent();
         }
     }
 
     export function instance() {
-        return Singleton.Get<controller>('gameController', controller)
+        return Singleton.Get<controller>('gameController', controller);
     }
-
-    instance().event.on('onDefeat', (e) => {
-        instance().status = eStatus.defeat
-        print('游戏失败')
-    })
-
-    instance().event.on('onVictory', (e) => {
-        instance().status = eStatus.victory
-        print('游戏胜利')
-    })
 }

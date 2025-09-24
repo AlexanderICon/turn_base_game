@@ -3,7 +3,7 @@
         "source.fixAll": "explicit"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[javascript]": {
         "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
@@ -12,5 +12,5 @@
         "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
     },
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-    "eslint.run": "onSave",
+    "eslint.run": "onSave"
 }

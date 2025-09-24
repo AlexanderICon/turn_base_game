@@ -7,7 +7,7 @@
 {
 	"npc_kv_custom_earthshaker" {
 		"BaseClass" "npc_dota_creature"
-		"Model" "models/items/broodmother/spiderling/ti9_cache_brood_mother_of_thousands_spiderling/ti9_cache_brood_mother_of_thousands_spiderling.vmdl"
+		"Model" "models/heroes/earthshaker/earthshaker.vmdl"
 		"ModelScale" "1"
 		"Creature" {
 			"AttachWearables" {
@@ -44,85 +44,8 @@
 		"RingRadius" "70"
 		"HasInventory" "1"
 	}
-	"npc_kv_custom_earthshaker2" {
-		"BaseClass" "npc_dota_creature"
-		"Model" "models/heroes/abaddon/mount.vmdl"
-		"ModelScale" "1"
-		"Creature" {
-			"AttachWearables" {
-				"1" { "ItemDef" "123" }
-				"2" { "ItemDef" "223" }
-			}
-		}
-		"SoundSet" "Hero_EarthShaker"
-		"GameSoundsFile" "soundevents/game_sounds_heroes/game_sounds_earthshaker.vsndevts"
-		"VoiceFile" "soundevents/voscripts/game_sounds_vo_earthshaker.vsndevts"
-		"Ability1" ""
-		"Ability2" ""
-		"Ability3" ""
-		"Ability4" ""
-		"Ability5" ""
-		"Ability6" ""
-		"ConsideredHero" "1"
-		"HealthBarOffset" "200"
-		"MovementCapabilities" "DOTA_UNIT_CAP_MOVE_GROUND"
-		"AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
-		"ArmorPhysical" "5"
-		"MagicalResistance" "0"
-		"StatusHealth" "500"
-		"StatusHealthRegen" "0"
-		"StatusMana" "100"
-		"StatusManaRegen" "0"
-		"BountyGoldMin" "0"
-		"BountyGoldMax" "0"
-		"AttackDamageMin" "50"
-		"AttackDamageMax" "60"
-		"AttackRate" "1.5000"
-		"AttackAnimationPoint" "0.3000"
-		"AttackRange" "130"
-		"BoundsHullName" "DOTA_HULL_SIZE_HERO"
-		"RingRadius" "70"
-		"HasInventory" "1"
-	}
-	"npc_hero_test_saber" {
-		"BaseClass" "npc_dota_hero_dragon_knight"
-		"Model" "models/heroes/dragon_knight_persona/dk_persona_base.vmdl"
-		"Creature" {
-			"AttachWearables" {
-				"1" { "ItemDef" "models/heroes/dragon_knight_persona/dk_persona_armor.vmdl" }
-				"2" { "ItemDef" "models/heroes/dragon_knight_persona/dk_persona_head_hair.vmdl" }
-				"3" { "ItemDef" "models/heroes/dragon_knight_persona/dk_persona_head_helmet.vmdl" }
-				"4" { "ItemDef" "models/heroes/dragon_knight_persona/dk_persona_shoulder_cape.vmdl" }
-				"5" { "ItemDef" "models/heroes/dragon_knight_persona/dk_persona_weapon.vmdl" }
-			}
-		}
-		"Ability1" ""
-		"Ability2" ""
-		"Ability3" ""
-		"Ability4" ""
-		"Ability5" ""
-		"Ability6" ""
-		"ConsideredHero" "1"
-		"HealthBarOffset" "200"
-		"MovementCapabilities" "DOTA_UNIT_CAP_MOVE_GROUND"
-		"AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
-		"ArmorPhysical" "5"
-		"MagicalResistance" "0"
-		"StatusHealth" "500"
-		"StatusHealthRegen" "0"
-		"StatusMana" "100"
-		"StatusManaRegen" "0"
-		"BountyGoldMin" "0"
-		"BountyGoldMax" "0"
-		"AttackDamageMin" "50"
-		"AttackDamageMax" "60"
-		"AttackRate" "1.5000"
-		"AttackAnimationPoint" "0.3000"
-		"AttackRange" "130"
-		"BoundsHullName" "DOTA_HULL_SIZE_HERO"
-		"RingRadius" "70"
-		"HasInventory" "0"
-	}
+
+
 
 
 

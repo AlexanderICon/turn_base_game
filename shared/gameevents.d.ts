@@ -8,19 +8,7 @@ declare interface CustomGameEventDeclarations {
         foo: number;
         bar: string;
     };
-
-    c2s_login_event :{
-        event_key:string,
-        event_data:any,
-    }
-
-    c2s_difficult_event :{
-        event_key:string,
-        event_data:any,
-    }
-
-    s2c_custom_event:{
-        event_key:string,
-        event_data:any,
-    }
+    player_select_hero_event: { list: string[] };
+    player_select_hero_by_index: { index: number };
+    game_event_select_difficulty: { difficulty: number };
 }
