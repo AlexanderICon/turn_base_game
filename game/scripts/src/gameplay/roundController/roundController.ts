@@ -34,6 +34,16 @@ export namespace roundController {
             );
         }
 
+        public set round(v: number) {
+            this._round = v;
+            CustomNetTables.SetTableValue('server_round_ready', 'round', { round: this._round });
+        }
+
+        public set state(v: state) {
+            this._state = v;
+            CustomNetTables.SetTableValue('server_round_ready', 'state', { state: this._state });
+        }
+
         // 准备阶段
         ready() {
             // todo : 如果是最大波次,那么直接进入胜利
@@ -53,8 +63,11 @@ export namespace roundController {
                 this._challengTimerKey = '';
             }
 
+            CustomNetTables.SetTableValue('server_round_ready', 'ready_time', { time: curInterval });
+
             Timers.CreateTimer(1, () => {
                 curInterval--;
+                CustomNetTables.SetTableValue('server_round_ready', 'ready_time', { time: curInterval });
 
                 if (curInterval <= 0) {
                     this.start();
@@ -124,7 +137,7 @@ export namespace roundController {
         }
 
         nextRound() {
-            this._round++;
+            this.round++;
             print('进入下一回合');
 
             this.settlePlayerResource();

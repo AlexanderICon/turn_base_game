@@ -17,4 +17,10 @@ declare interface CustomNetTableDeclarations {
         key_1: number;
         key_2: string;
     };
+
+    server_round_ready: {
+        ready_time: { time: number };
+        round: { round: number };
+        state: { state: number };
+    };
 }

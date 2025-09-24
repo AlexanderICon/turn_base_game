@@ -15,4 +15,19 @@
 		"difficulty" "2"
 		"maxRound" "12"
 	}
+	"3" {
+		"text" "difficulty_local_CN_3"
+		"difficulty" "3"
+		"maxRound" "14"
+	}
+	"4" {
+		"text" "difficulty_local_CN_4"
+		"difficulty" "4"
+		"maxRound" "16"
+	}
+	"5" {
+		"text" "difficulty_local_CN_5"
+		"difficulty" "5"
+		"maxRound" "18"
+	}
 }
