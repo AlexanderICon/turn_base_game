@@ -53,8 +53,8 @@ const Root: FC = () => {
         <MainPanel>
 
         </MainPanel>
-        <LoginPanel></LoginPanel>
-        <DifficultChoosePanel></DifficultChoosePanel>
+        {/* <LoginPanel></LoginPanel>
+        <DifficultChoosePanel></DifficultChoosePanel> */}
         <HeroChoosePanel></HeroChoosePanel>
     </>
     )

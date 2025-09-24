@@ -68,7 +68,7 @@ export namespace roundController {
             Timers.CreateTimer(1, () => {
                 curInterval--;
                 CustomNetTables.SetTableValue('server_round_ready', 'ready_time', { time: curInterval });
-
+                print('更新时间',curInterval)
                 if (curInterval <= 0) {
                     this.start();
                     return null;
@@ -137,7 +137,7 @@ export namespace roundController {
         }
 
         nextRound() {
-            this.round++;
+            this._round++;
             print('进入下一回合');
 
             this.settlePlayerResource();
