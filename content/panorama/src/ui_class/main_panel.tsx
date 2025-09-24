@@ -6,6 +6,7 @@ import EquipShop from "./shopPanel/equip_shop_panel";
 import SkillShopPanel from "./shopPanel/skill_shop_panel";
 import InvestmentShopPanel from "./shopPanel/investment_shop_panel";
 import TopInfoPanel from "./top_info_panel";
+import CheckReadyPanel from "./check_ready_panel";
 
 const MainPanel:FC = () =>{
     const bagRef = useRef(null)
@@ -175,6 +176,7 @@ const MainPanel:FC = () =>{
         ></TButton>
 
         <TopInfoPanel></TopInfoPanel>
+        <CheckReadyPanel></CheckReadyPanel>
     </>)
 }
 

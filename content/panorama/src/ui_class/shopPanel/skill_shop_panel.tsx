@@ -32,12 +32,14 @@ const SkillShopPanel:FC<PanelAttributes> = (props) =>{
             verticalAlign:'center',
         }}
     >
-        <Button style={{
+        <Button className="CloseBtn" onactivate={toggleVisible}
+        ></Button>
+        {/* <Button style={{
             horizontalAlign:'right',
             width:`60px`,
             height:`60px`,
             backgroundColor:'#ff0000'
-        }} onactivate={toggleVisible}></Button>
+        }} onactivate={toggleVisible}></Button> */}
 
         <Label text={'技能商店'} style={{
             horizontalAlign:'center',

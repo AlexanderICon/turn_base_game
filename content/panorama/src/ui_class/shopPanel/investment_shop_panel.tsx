@@ -1,21 +1,29 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { PanelAttributes } from "react-panorama-x";
 import ListPanel from "../common/listPanel";
 import { ShopCard } from "./base_shop_panel";
 import TButton from "../common/textButton";
+import useToggle from "../../hooks/useToggle";
 
 
 const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
-
+    const [visible,toggleVisible,setVisible] = useToggle(props.visible);
     const [sellList,setSellList] = useState(new Array);
 
     useMemo(() =>{
         setSellList([1,2,3,4])
     },[])
+    useEffect(() =>{
+            if(props.visible!=undefined){
+                setVisible(props.visible);
+            }else{
+                setVisible(false)
+            }
+    },[props.visible])
 
     return (<Panel
         className="NormalPanel"
-        visible={props.visible}
+        visible={visible}
         style={{
             width:'800px',
             height:'500px',
@@ -23,6 +31,9 @@ const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
             verticalAlign:'center',
         }}
     >
+
+        <Button className="CloseBtn" onactivate={toggleVisible}
+        ></Button>
         <Label text={'投资商店'} style={{
             horizontalAlign:'center',
             width:`60%`,

@@ -64,8 +64,7 @@ const ItemButton:FC<ItemButtonProps & PanelAttributes> = (props) =>{
         {...otherProps}
         className="NormalButton"
         >
-        {/* <Label className="ButtonText" >
-        </Label> */}
+       
         <DOTAAbilityImage
             visible={visible_1}
             abilityname={itemName}

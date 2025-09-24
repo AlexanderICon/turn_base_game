@@ -5,6 +5,7 @@ import { PanelAttributes, useNetTableValues } from "react-panorama-x";
 import ListPanel from "./common/listPanel";
 import ItemButton from "./common/itemButton";
 import useToggle from "../hooks/useToggle";
+import DraggableWindow from "../utils/draggable_window";
 
 
 const BagPanel:FC<PanelAttributes> = (props) =>{
@@ -40,14 +41,7 @@ const BagPanel:FC<PanelAttributes> = (props) =>{
             horizontalAlign:`center`,
         }}
     >
-        <Button className="CloseBtn" 
-        // style={{
-        //     horizontalAlign:'right',
-        //     width:`60px`,
-        //     height:`60px`,
-        //     backgroundColor:'#ff0000'
-        // }} 
-        onactivate={toggleVisible}
+        <Button className="CloseBtn" onactivate={toggleVisible}
         ></Button>
 
         <Label text={'背包'}
@@ -68,6 +62,9 @@ const BagPanel:FC<PanelAttributes> = (props) =>{
         >
             <Button
                 className="EquipSlot1"
+                on-ui-DragEnter={() => {
+                    console.log('测试拖动进入')
+                }}
             ></Button>
             <Button
                 className="EquipSlot2"
@@ -100,10 +97,18 @@ const BagPanel:FC<PanelAttributes> = (props) =>{
             listArray={bagList}
             renderFunction={(idx,dt) =>{
                 return <ItemButton
-                    itemName="test_weapon"
+                    itemName="test_armor"
+                    draggable={true}
+                    on-ui-DragStart={() =>{
+                        console.log('测试拖动')
+                    }}
                     
                 >
                 </ItemButton>
+                // return <DraggableWindow
+                //     title="测试"
+                //     children={[]}
+                // ></DraggableWindow>
             }}
             style={{
                 horizontalAlign:'right',
