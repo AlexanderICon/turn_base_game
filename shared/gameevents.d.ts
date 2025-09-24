@@ -8,4 +8,7 @@ declare interface CustomGameEventDeclarations {
         foo: number;
         bar: string;
     };
+    player_select_hero_event: { list: string[] };
+    player_select_hero_by_index: { index: number };
+    game_event_select_difficulty: { difficulty: number };
 }

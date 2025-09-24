@@ -17,6 +17,7 @@ import { DispatchEventAction, FunctionAction, RunSequentialActions, WaitAction }
 import React from 'react';
 import { setKeyDownCallback, useKeyPressed } from '../hooks/useKeyboard';
 import { registerCustomKey } from '../utils/keybinding';
+import { onXNetTableEvent } from '../hooks/useXNetTable';
 
 // 注册自定义按键
 registerCustomKey('D');
@@ -25,9 +26,9 @@ registerCustomKey('F');
 // 当按下F时，会发送游戏事件到服务器，这种用法更为常用
 setKeyDownCallback('F', () => {
     console.log(`按下了F键!!`);
-    GameEvents.SendCustomGameEventToServer('c2s_test_event', { key: 'F' });
+    // GameEvents.SendCustomGameEventToServer('c2s_test_event', { key: 'F' });
+    GameEvents.SendCustomGameEventToServer('game_event_select_difficulty', { difficulty: 1 });
 });
-
 const Root: FC = () => {
     const url = `https://github.com/XavierCHN/x-template`;
     const go = React.useCallback(() => {

@@ -1,17 +1,17 @@
-import { Singleton } from "../../core/singleton/singleton";
+import { Player } from './player';
 
-export namespace playerController {
+const array: CDOTAPlayerController[] = [];
 
-    class controller {
-        private _array: CDOTAPlayerController[] = []
-
-
-        public get array(): CDOTAPlayerController[] {
-            return this._array
-        }
+export class playerController {
+    static getAllPlayers(): CDOTAPlayerController[] {
+        return array;
     }
 
-    export const key = 'playerController'
+    static addPlayer(player: CDOTAPlayerController) {
+        array.push(player);
+    }
 
-    export const instance = Singleton.Get<controller>(key, controller)
+    static getPlayer(player: PlayerID): CDOTAPlayerController | undefined {
+        return PlayerResource.GetPlayer(player);
+    }
 }
