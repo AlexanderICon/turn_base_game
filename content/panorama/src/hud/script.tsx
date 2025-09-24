@@ -18,6 +18,9 @@ import React from 'react';
 import { setKeyDownCallback, useKeyPressed } from '../hooks/useKeyboard';
 import { registerCustomKey } from '../utils/keybinding';
 import { onXNetTableEvent } from '../hooks/useXNetTable';
+import MainPanel from '../ui_class/main_panel';
+import LoginPanel from '../ui_class/login_panel';
+import DifficultChoosePanel from '../ui_class/diffcult_choose_panel';
 
 // 注册自定义按键
 registerCustomKey('D');
@@ -44,27 +47,15 @@ const Root: FC = () => {
     // 当按下D时，会使二维码放大1.5倍，在这里作为一个在react中使用按键hook的示例
     const dPressed = useKeyPressed(`D`);
 
-    return (
-        <>
-            {
-                // 显示一个二维码作为范例
-                <PanoramaQRCode
-                    style={{ preTransformScale2d: dPressed ? `1.5` : `1` }}
-                    id="QRCode"
-                    onactivate={go}
-                    value={url}
-                    size={128}
-                    excavate={8}
-                    className={`QRCode`}
-                >
-                    <Image
-                        src="file://{images}/logos/dota_logo_bright.psd"
-                        style={{ width: `32px`, height: `32px`, horizontalAlign: `center`, verticalAlign: `center` }}
-                    />
-                </PanoramaQRCode>
-            }
-        </>
-    );
+        return(
+    <>
+        <MainPanel>
+
+        </MainPanel>
+        <LoginPanel></LoginPanel>
+        <DifficultChoosePanel></DifficultChoosePanel>
+    </>
+    )
 };
 
 render(<Root />, $.GetContextPanel());
