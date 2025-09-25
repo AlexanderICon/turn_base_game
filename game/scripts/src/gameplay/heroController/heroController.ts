@@ -84,7 +84,7 @@ export namespace heroController {
                 const curRandom = RandomInt(1, allWeight);
                 for (let v = 0; v < temp2.length; v++) {
                     curWeight += temp2[v].weight;
-                    if (curWeight <= curRandom && count < rule[i].count) {
+                    if (curWeight >= curRandom && count < rule[i].count) {
                         count++;
                         val.push(tonumber(temp2[v].id));
                     }
