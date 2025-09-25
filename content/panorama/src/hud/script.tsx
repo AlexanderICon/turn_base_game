@@ -11,7 +11,7 @@ console.log(`content/panorama/src/hud/script.tsx -> 以下代码均为示例代�
 import '../utils/hide-default-hud';
 
 import { useMemo, type FC } from 'react';
-import { render } from 'react-panorama-x';
+import { PanelAttributes, render } from 'react-panorama-x';
 import { PanoramaQRCode } from '../utils/react-panorama-qrcode';
 import { DispatchEventAction, FunctionAction, RunSequentialActions, WaitAction } from '../utils/sequential-actions';
 import React from 'react';
@@ -22,6 +22,7 @@ import MainPanel from '../ui_class/main_panel';
 import LoginPanel from '../ui_class/login_panel';
 import DifficultChoosePanel from '../ui_class/diffcult_choose_panel';
 import HeroChoosePanel from '../ui_class/hero_choose_panel';
+import TButton from '../ui_class/common/textButton';
 
 // 注册自定义按键
 registerCustomKey('D');
@@ -34,6 +35,7 @@ setKeyDownCallback('F', () => {
     // GameEvents.SendCustomGameEventToServer('client_select_difficulty_event', { difficulty: 1 });
     GameEvents.SendCustomGameEventToServer('client_fresh_player_select_hero_list', {});
 });
+
 const Root: FC = () => {
     const url = `https://github.com/XavierCHN/x-template`;
     const go = React.useCallback(() => {

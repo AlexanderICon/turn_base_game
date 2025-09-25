@@ -7,6 +7,7 @@ import SkillShopPanel from "./shopPanel/skill_shop_panel";
 import InvestmentShopPanel from "./shopPanel/investment_shop_panel";
 import TopInfoPanel from "./top_info_panel";
 import CheckReadyPanel from "./check_ready_panel";
+import ResourceLabel from "./common/resourceLabel";
 
 const MainPanel:FC = () =>{
     const bagRef = useRef(null)
@@ -177,6 +178,29 @@ const MainPanel:FC = () =>{
 
         <TopInfoPanel></TopInfoPanel>
         {/* <CheckReadyPanel></CheckReadyPanel> */}
+        <ResourceLabel
+            style={{
+                backgroundColor:'#000000',
+                horizontalAlign:'right',
+                width:`140px`,
+                height:`60px`,
+                y:`5%`,
+                x:'-5%'
+            }}
+            resource_type="current_gold"
+        ></ResourceLabel>
+         <ResourceLabel
+            style={{
+                backgroundColor:'#000000',
+                horizontalAlign:'right',
+                width:`140px`,
+                height:`60px`,
+                y:`5%`,
+                x:'-15%'
+            }}
+            resource_type="current_wood"
+        ></ResourceLabel>
+
     </>)
 }
 

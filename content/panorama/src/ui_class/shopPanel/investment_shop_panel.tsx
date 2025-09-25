@@ -7,29 +7,32 @@ import useToggle from "../../hooks/useToggle";
 import MoneyLabel from "../common/moneyLabel";
 import ItemButton from "../common/itemButton";
 
-type TestData = {
-    name:string,
-    value:number,
+interface InvestShopAttribute {
+    invest_type:string
 }
 
-const InvsetShopCard:FC<PanelAttributes> = (props) =>{
+const InvsetShopCard:FC<PanelAttributes & InvestShopAttribute> = (props) =>{
     const {
+        invest_type,
         ...otherprops
     } = props
     const self = useRef(null)
-    useEffect(() =>{
-        if(self.current){
-            const curSelf = self.current as Panel;
-            const data = curSelf.Data<TestData>()
-            data.name = '赋值'
-            console.log('测试数据打印',curSelf,data);
-        }
-    },[])
+    // useEffect(() =>{
+    //     if(self.current){
+    //         const curSelf = self.current as Panel;
+    //         const data = curSelf.Data<TestData>()
+    //         data.name = '赋值'
+    //         console.log('测试数据打印',curSelf,data);
+    //     }
+    // },[])
+    const [curInvest,setCurInvest] = useState(0)
+    const [maxInvest,setMaxInvest] = useState(0)
 
     return<Panel
-      {...otherprops}
+        {...otherprops}
         className="EquipShopCard"
         style={{
+            flowChildren:'down',
             width:`120px`,
             height:`330px`,
         }}
@@ -45,6 +48,14 @@ const InvsetShopCard:FC<PanelAttributes> = (props) =>{
                 height:'40px',
             }}
         ></MoneyLabel>
+        <Label
+            text={`${curInvest}/${maxInvest}`}
+            style={{
+                fontSize:'24px',
+                textAlign:'center',
+            }}
+        >
+        </Label>
         <TButton
             text={'购买'}
             style={{
@@ -107,20 +118,17 @@ const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
                 listArray={sellList}
                 renderFunction={(idx,dt) =>{
                     return <InvsetShopCard
-                        className="NormalPanel"
-                        style={{
-                            backgroundColor:'#ffff00'
-                        }}
+                        invest_type=""
                     >
 
                     </InvsetShopCard>
                 }}
                 id='EquipShopList'
-                childHeight="100px"
-                childWidth="100px"
+                // childHeight="100px"
+                // childWidth="100px"
             >
             </ListPanel>
-            <TButton
+            {/* <TButton
                 text={'刷新'}
                 style={{
                     horizontalAlign:'center',
@@ -129,7 +137,7 @@ const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
                     width:'130px',
                     height:'40px',
                 }}
-            ></TButton>
+            ></TButton> */}
         </Panel>
        
 

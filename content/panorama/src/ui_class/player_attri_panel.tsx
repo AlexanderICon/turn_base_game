@@ -1,8 +1,9 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { onXNetTableEvent, useXNetTableEvent, useXNetTableKey } from "../hooks/useXNetTable";
 import { CharacterAttributeTable } from "../ui_table/characterAttribute";
 import { PanelAttributes } from "react-panorama-x";
 import ListPanel from "./common/listPanel";
+import useToggle from "../hooks/useToggle";
 
 const AttriDefine = CharacterAttributeTable.GetDefine()
 
@@ -18,7 +19,7 @@ const AttributeLabel:FC<PanelAttributes> = (props) =>{
 }
 
 const PlayerAttriPanel:FC<PanelAttributes> = (props) =>{
-
+    const [visible,toggleVisble,setVisible] = useToggle(props.visible)
     const [attriList1,setAttriList1] = useState(new Array); //基础属性
     const [attriList2,setAttriList2] = useState(new Array); //伤害加成属性
 
@@ -29,6 +30,11 @@ const PlayerAttriPanel:FC<PanelAttributes> = (props) =>{
     //      console.log('xNet服务端事件消息3')
     //     console.log(data)
     // })
+    useEffect(() =>{
+        if(props.visible){
+             setVisible(props.visible);
+        }
+    },[props.visible])
 
     useMemo(() =>{ //初始化属性表
         let newArray1 = new Array
@@ -58,6 +64,7 @@ const PlayerAttriPanel:FC<PanelAttributes> = (props) =>{
 
     
     return(<Panel
+        visible={visible}
         {...props}
         className="NormalPanel"
         style={{
@@ -67,6 +74,7 @@ const PlayerAttriPanel:FC<PanelAttributes> = (props) =>{
             horizontalAlign:`center`,
         }}
     >
+        <Button className="CloseBtn" onactivate={toggleVisble}></Button>
         <Label text={'人物属性'}
             style={{
                 

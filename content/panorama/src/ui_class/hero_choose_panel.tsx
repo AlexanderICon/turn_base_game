@@ -87,10 +87,11 @@ const HeroChoosePanel:FC<PanelAttributes> = (props) =>{
             const heroName = HeroChooseConfig.GetData(value.data.toString()).key
             return {name:heroName,id:value.data}
         })
+        console.log('刷新英雄选择表',newArray,data.ids)
         setHeroList(newArray)
     })
     useGameEvent('server_to_client_player_free_fresh_list',(data)=>{
-        console.log('刷新次数变更',data.count)
+        //console.log('刷新次数变更',data.count)
         setFreeRefresh(data.count);
 
     })

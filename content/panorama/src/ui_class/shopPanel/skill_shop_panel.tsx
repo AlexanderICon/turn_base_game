@@ -10,6 +10,7 @@ import classNames from "classnames";
 const SkillShopPanel:FC<PanelAttributes> = (props) =>{
     const [visible,toggleVisible,setVisible] = useToggle(props.visible);
     const [sellList,setSellList] = useState(new Array);
+    const [shopLv,setShopLv] = useState(1)
 
     useMemo(() =>{
         setSellList([1,2,3,4])
@@ -48,6 +49,10 @@ const SkillShopPanel:FC<PanelAttributes> = (props) =>{
             fontSize:'36px',
             textAlign:'center',
         }}></Label>
+        <Label 
+            text={`商店等级：${shopLv}`}
+            
+        ></Label>
         <Panel
             style={{
                 horizontalAlign:'center',
