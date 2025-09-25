@@ -1,10 +1,40 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { PanelAttributes } from "react-panorama-x";
 import ListPanel from "../common/listPanel";
 import { ShopCard } from "./base_shop_panel";
 import TButton from "../common/textButton";
 import useToggle from "../../hooks/useToggle";
 
+type TestData = {
+    name:string,
+    value:number,
+}
+
+const InvsetShopCard:FC<PanelAttributes> = (props) =>{
+    const {
+        ...otherprops
+    } = props
+    const self = useRef(null)
+    useEffect(() =>{
+        if(self.current){
+            const curSelf = self.current as Panel;
+            const data = curSelf.Data<TestData>()
+            data.name = '赋值'
+            console.log('测试数据打印',curSelf,data);
+        }
+    },[])
+
+    return<Panel
+        {...otherprops}
+        ref={self}
+        onactivate={(pnl:Panel) =>{
+            console.log('测试打印',pnl.Data<TestData>().name)
+            pnl.Data<TestData>().name = '123'
+        }}
+    >
+
+    </Panel>
+}
 
 const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
     const [visible,toggleVisible,setVisible] = useToggle(props.visible);
@@ -56,13 +86,18 @@ const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
                 }}
                 listArray={sellList}
                 renderFunction={(idx,dt) =>{
-                    return <ShopCard
-
+                    return <InvsetShopCard
+                        className="NormalPanel"
+                        style={{
+                            backgroundColor:'#ffff00'
+                        }}
                     >
 
-                    </ShopCard>
+                    </InvsetShopCard>
                 }}
                 id='EquipShopList'
+                childHeight="100px"
+                childWidth="100px"
             >
             </ListPanel>
             <TButton
