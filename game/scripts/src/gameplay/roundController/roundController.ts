@@ -141,6 +141,7 @@ export namespace roundController {
             print('进入下一回合');
 
             this.settlePlayerResource();
+            // todo:刷新玩家商店
             this.ready();
         }
 

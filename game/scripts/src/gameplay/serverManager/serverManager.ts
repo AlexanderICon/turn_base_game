@@ -1,5 +1,7 @@
 import { difficultyController } from '../difficultyController/difficultyController';
 import { heroController } from '../heroController/heroController';
+import { eMarketType } from '../marketController/marketBase';
+import { Player } from '../playerController/player';
 import { playerController } from '../playerController/playerController';
 
 CustomGameEventManager.RegisterListener('client_select_difficulty_event', (userId, e) => {
@@ -15,4 +17,15 @@ CustomGameEventManager.RegisterListener('client_player_select_hero_by_id', (user
 
 CustomGameEventManager.RegisterListener('client_fresh_player_select_hero_list', (userId, e) => {
     heroController.instance().fresh(playerController.getPlayer(e.PlayerID), 1);
+});
+
+CustomGameEventManager.RegisterListener('client_market_level_up', (_, e) => {
+    switch (e.tag) {
+        case 'ability':
+            Player.getPlayer(playerController.getPlayer(e.PlayerID)).market.get(eMarketType.ability)?.upLevel();
+            break;
+        case 'market':
+            Player.getPlayer(playerController.getPlayer(e.PlayerID)).market.get(eMarketType.market)?.upLevel();
+            break;
+    }
 });
