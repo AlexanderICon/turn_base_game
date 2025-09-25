@@ -1,12 +1,12 @@
 const map = new Map<CDOTAPlayerController, Player>();
 
 export enum eAttribute {
-    currentGold, // 金币
-    currentWood, // 木材
-    goldRate, // 金币产量
-    woodRate, // 木材产量
-    roundGold, // 每回合结算金币
-    roundWood, // 每回合结算木材
+    currentGold = 'current_gold', // 金币
+    currentWood = 'current_wood', // 木材
+    goldRate = 'gold_rate', // 金币产量
+    woodRate = 'wood_rate', // 木材产量
+    roundGold = 'round_gold', // 每回合结算金币
+    roundWood = 'round_wood', // 每回合结算木材
 }
 
 export class Player {
@@ -41,5 +41,6 @@ export class Player {
 
     addAttribute(attr: eAttribute, amount: number) {
         this._attribute.set(attr, this.getAttribute(attr) + amount);
+        GameRules.XNetTable.SetPlayerTableValue(this._player.GetPlayerID(), 'player_resource', attr, this.getAttribute(attr));
     }
 }

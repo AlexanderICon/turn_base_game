@@ -3,7 +3,7 @@ import { difficultyController } from '../difficultyController/difficultyControll
 import { eventEmitterBase } from '../eventEmitterBase/eventEmitterBase';
 import { gameController } from '../gameConroller/gameController';
 import { cfgGlobal } from '../global/global';
-import { eAttribute, Player } from '../playerController/player';
+import { Player } from '../playerController/player';
 import { playerController } from '../playerController/playerController';
 
 import * as round from '../../json/roundConfig.json';
@@ -68,7 +68,7 @@ export namespace roundController {
             Timers.CreateTimer(1, () => {
                 curInterval--;
                 CustomNetTables.SetTableValue('server_round_ready', 'ready_time', { time: curInterval });
-                print('更新时间',curInterval)
+                print('更新时间', curInterval);
                 if (curInterval <= 0) {
                     this.start();
                     return null;

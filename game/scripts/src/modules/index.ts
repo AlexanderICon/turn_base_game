@@ -3,6 +3,7 @@ import { GameConfig } from './GameConfig';
 import { XNetTable } from '../utils/xnet-table';
 import { app } from '../gameplay/app/app';
 import { playerController } from '../gameplay/playerController/playerController';
+import { Player } from '../gameplay/playerController/player';
 
 declare global {
     interface CDOTAGameRules {
@@ -16,6 +17,7 @@ ListenToGameEvent(
     event => {
         const player = playerController.getPlayer(event.PlayerID);
         if (!player) return;
+        Player.getPlayer(player);
         playerController.addPlayer(player); // 添加玩家统一管理
     },
     null
