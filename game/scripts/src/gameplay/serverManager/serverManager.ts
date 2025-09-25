@@ -14,5 +14,5 @@ CustomGameEventManager.RegisterListener('client_player_select_hero_by_id', (user
 });
 
 CustomGameEventManager.RegisterListener('client_fresh_player_select_hero_list', (userId, e) => {
-    heroController.instance().fresh(playerController.getPlayer(e.PlayerID));
+    heroController.instance().fresh(playerController.getPlayer(e.PlayerID), 1);
 });
