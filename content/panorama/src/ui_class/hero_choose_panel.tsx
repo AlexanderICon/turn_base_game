@@ -2,6 +2,7 @@ import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { PanelAttributes, useGameEvent } from "react-panorama-x";
 import ListPanel from "./common/listPanel";
 import TButton from "./common/textButton";
+import { HeroChooseConfig } from "../ui_table/heroChoose";
 
 
 const LocalHeroList = {
@@ -11,12 +12,14 @@ const LocalHeroList = {
 }
 
 interface CharacterCardProps {
+    choose_id:number,
     hero_name:string,
     //chooseCharacter:() =>{}
 }
 
 const CharacterCard:FC<CharacterCardProps & PanelAttributes> = (props) =>{
     const {
+        choose_id,
         hero_name = props.hero_name ? props.hero_name : 'npc_dota_hero_antimage',
         onactivate,
         ...otherProps
@@ -28,9 +31,7 @@ const CharacterCard:FC<CharacterCardProps & PanelAttributes> = (props) =>{
         if(onactivate!=undefined){
             onactivate(pnl)
         }
-        GameEvents.SendCustomGameEventToServer('c2s_login_event',{event_key : '选择角色'+hero_name,event_data:{
-            choose_hero:hero_name
-        }})
+        GameEvents.SendCustomGameEventToServer('client_player_select_hero_by_id',{id:choose_id})
     }
 
     useEffect(() =>{
@@ -61,6 +62,7 @@ const CharacterCard:FC<CharacterCardProps & PanelAttributes> = (props) =>{
 const HeroChoosePanel:FC<PanelAttributes> = (props) =>{
     const [heroList,setHeroList] = useState(new Array)
     const [visible,setVisible] = useState(true)
+    const [freeRefresh,setFreeRefresh] = useState(0)
 
     // useGameEvent('s2c_custom_event',(event) => {
     //     if (event.event_key === 'login_event'){
@@ -71,6 +73,14 @@ const HeroChoosePanel:FC<PanelAttributes> = (props) =>{
     //         setHeroList(newList)
     //     }
     // })
+    useGameEvent('server_to_client_player_hero_list',(data) =>{
+        //const dataArray = new Array;
+        const dataArray = data.ids as Array<number>
+        const newArray = dataArray.map((value,idx) =>{
+            const heroName = HeroChooseConfig.GetData(value.toString()).key
+            return {name:heroName,id:value}
+        })
+    })
 
     function testRefresh(){
         const newList = new Array;
@@ -84,9 +94,15 @@ const HeroChoosePanel:FC<PanelAttributes> = (props) =>{
         console.log('测试刷新',newList)
     }
 
-    useMemo(() => {
-        testRefresh()
-    },[])
+    // useMemo(() => {
+    //     testRefresh()
+    // },[])
+
+    function refreshHeroList(pnl:Panel){
+        if(freeRefresh>0){
+             GameEvents.SendCustomGameEventToServer('client_fresh_player_select_hero_list',{})
+        }
+    }
 
     if(!visible) return (null)
 
@@ -112,6 +128,7 @@ const HeroChoosePanel:FC<PanelAttributes> = (props) =>{
                 listArray={heroList}
                 renderFunction={(idx,dt) => {
                     return <CharacterCard
+                        choose_id={dt.id}
                         hero_name={dt.name}
                         onactivate={() => {
                             setVisible(false)
@@ -131,21 +148,20 @@ const HeroChoosePanel:FC<PanelAttributes> = (props) =>{
 
             </ListPanel>
             <TButton
-                text={'刷新'}
+                text={`刷新（${freeRefresh}）`}
                 className="NormalButton"
                 style={{
                     y:'-20%',
-                    width:'120px',
-                    height:'45px',
+                    width:'180px',
+                    height:'50px',
                     horizontalAlign:'center',
                     verticalAlign:'bottom',
                 }}
                 fontStyle={{
                     fontSize:'32px',
                 }}
-                onactivate={testRefresh}
+                onactivate={refreshHeroList}
             >
-
             </TButton>
         </Panel>)
 }
