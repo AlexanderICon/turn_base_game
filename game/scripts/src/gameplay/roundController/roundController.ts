@@ -68,8 +68,8 @@ export namespace roundController {
             Timers.CreateTimer(1, () => {
                 curInterval--;
                 CustomNetTables.SetTableValue('server_round_ready', 'ready_time', { time: curInterval });
-                print('更新时间', curInterval);
-                Player.getPlayer(playerController.getPlayer(0)).addAttribute(eAttribute.currentGold,10)
+                // print('更新时间', curInterval);
+                // Player.getPlayer(playerController.getPlayer(0)).addAttribute(eAttribute.currentGold,10)
                 if (curInterval <= 0) {
                     this.start();
                     return null;

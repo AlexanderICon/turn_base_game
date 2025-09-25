@@ -12,6 +12,7 @@ import useToggle from "../../hooks/useToggle";
 const EquipShop:FC<PanelAttributes> = (props) =>{
     const [visible,toggleVisible,setVisible] = useToggle(props.visible);
     const [sellList,setSellList] = useState(new Array); 
+    const [shopLv,setShopLv] = useState(1)
 
     useMemo(() =>{
         setSellList([1,2,3,4])
@@ -54,8 +55,10 @@ const EquipShop:FC<PanelAttributes> = (props) =>{
         >
             <ListPanel
                 style={{
+                    horizontalAlign:'left',
                     verticalAlign:'top',
-                    height:'85%',
+                    height:'95%',
+                    width:'75%',
                 }}
                 listArray={sellList}
                 renderFunction={(idx,dt) =>{
@@ -68,16 +71,66 @@ const EquipShop:FC<PanelAttributes> = (props) =>{
                 id='EquipShopList'
             >
             </ListPanel>
-            <TButton
+            
+            <Panel
+            style={{
+                    horizontalAlign:'right',
+                    flowChildren:'down',
+                    fontSize:'24px',
+                    width:'130px',
+                    height:'40%',
+                }}
+        >
+            <Label 
+                text={`商店等级：${shopLv}`}
+            ></Label>
+                <TButton
+                text={'升级商店'}
+                style={{
+                    fontSize:'24px',
+                    width:'130px',
+                    height:'40px',
+                }}
+                ></TButton>
+                <MoneyLabel
+                    style={{
+                        width:'95%',
+                        height:'35px'
+                    }}
+                    money_type="current_gold"
+                    money_num={0}
+                ></MoneyLabel>
+            </Panel>
+
+            <Panel
+                style={{
+                    y:'50%',
+                    horizontalAlign:'right',
+                    flowChildren:'down',
+                    fontSize:'24px',
+                    width:'130px',
+                    height:'40%',
+                }}
+            >
+                <TButton
                 text={'刷新'}
                 style={{
-                    horizontalAlign:'center',
-                    verticalAlign:'bottom',
                     fontSize:'24px',
                     width:'130px',
                     height:'40px',
                 }}
             ></TButton>
+                <MoneyLabel
+                    style={{
+                        width:'95%',
+                        height:'35px'
+                    }}
+                    money_type="current_gold"
+                    money_num={0}
+                ></MoneyLabel>
+            </Panel>
+            
+
         </Panel>
        
 

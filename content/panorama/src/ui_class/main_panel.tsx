@@ -9,6 +9,71 @@ import TopInfoPanel from "./top_info_panel";
 import CheckReadyPanel from "./check_ready_panel";
 import ResourceLabel from "./common/resourceLabel";
 
+const TestDrag:FC = () =>{
+    const positionRef = useRef({ x: 500, y: 500 });
+    const dragStartXRef = useRef(0);
+    const dragStartYRef = useRef(0);
+    const parentRef = useRef<Panel | null>(null);
+
+    const handleDragStart = (panel: Panel, dragPanel: any) => {
+        const parent = panel as Panel;
+        parent.style.opacity = '0.5';
+        const cursorPosition = GameUI.GetCursorPosition();
+        parentRef.current = panel.GetParent();
+        // 记录鼠标初始位置
+        dragStartXRef.current = cursorPosition[0];
+        dragStartYRef.current = cursorPosition[1];
+        positionRef.current = panel.GetPositionWithinWindow();
+        // @ts-ignore
+    
+        dragPanel.displayPanel = parent;
+    };
+    const handleDragEnd = (panel: Panel, dragPanel: Panel) => {
+        const parent = panel as Panel;
+        const cursorPosition = GameUI.GetCursorPosition();
+        parent.style.opacity = '0.8';
+        // 结束时的鼠标位置
+        const offsetX = cursorPosition[0];
+        const offsetY = cursorPosition[1];
+
+        // 计算鼠标移动的距离
+        const deltaX = offsetX - dragStartXRef.current;
+        const deltaY = offsetY - dragStartYRef.current;
+
+        const newX = positionRef.current.x + deltaX;
+        const newY = positionRef.current.y + deltaY;
+
+        positionRef.current = { x: newX, y: newY };
+        // 设置面板位置
+        const ry = Game.GetScreenHeight() / 1080;
+
+        //重新设置父面板
+        if (parentRef.current) {
+            parent.SetParent(parentRef.current);
+        }
+        parent.style.x = `${newX / ry}px`;
+        parent.style.y = `${newY / ry}px`;
+    };
+
+    return(<Button
+        style={{
+                backgroundColor:'#ffffff',
+                // horizontalAlign:'center',
+                // verticalAlign:'center',
+                x:'500px',
+                y:'500px',
+                height:'60px',
+                width:'60px',
+                zIndex:600,
+            }}
+            on-ui-DragStart={handleDragStart}
+            on-ui-DragEnd={handleDragEnd}
+            draggable={true}
+    >
+        
+    </Button>)
+}
+
 const MainPanel:FC = () =>{
     const bagRef = useRef(null)
     const [bagShow,setBagShow] = useState(false);
@@ -44,8 +109,7 @@ const MainPanel:FC = () =>{
         ></BagPanel>
         <PlayerAttriPanel
             visible={playerInfoShow}
-        >
-        </PlayerAttriPanel>
+        ></PlayerAttriPanel>
         <EquipShop
             visible={equipShopShow}
         ></EquipShop>
@@ -201,6 +265,7 @@ const MainPanel:FC = () =>{
             resource_type="current_wood"
         ></ResourceLabel>
 
+        <TestDrag></TestDrag>
     </>)
 }
 

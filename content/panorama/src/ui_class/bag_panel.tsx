@@ -102,7 +102,6 @@ const BagPanel:FC<PanelAttributes> = (props) =>{
                     on-ui-DragStart={() =>{
                         console.log('测试拖动')
                     }}
-                    
                 >
                 </ItemButton>
                 // return <DraggableWindow

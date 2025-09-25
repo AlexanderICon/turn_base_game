@@ -51,6 +51,7 @@ const InvsetShopCard:FC<PanelAttributes & InvestShopAttribute> = (props) =>{
         <Label
             text={`${curInvest}/${maxInvest}`}
             style={{
+                width:'100%',
                 fontSize:'24px',
                 textAlign:'center',
             }}

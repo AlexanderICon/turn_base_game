@@ -46,7 +46,7 @@ export namespace heroController {
 
         start(players: CDOTAPlayerController[]) {
             players.forEach(e => {
-                this.freshCount.set(e, 20);
+                this.freshCount.set(e, 1);
                 this.fresh(e);
             });
         }
