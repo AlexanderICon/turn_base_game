@@ -4,6 +4,8 @@ import ListPanel from "../common/listPanel";
 import { ShopCard } from "./base_shop_panel";
 import TButton from "../common/textButton";
 import useToggle from "../../hooks/useToggle";
+import MoneyLabel from "../common/moneyLabel";
+import ItemButton from "../common/itemButton";
 
 type TestData = {
     name:string,
@@ -25,14 +27,32 @@ const InvsetShopCard:FC<PanelAttributes> = (props) =>{
     },[])
 
     return<Panel
-        {...otherprops}
-        ref={self}
-        onactivate={(pnl:Panel) =>{
-            console.log('测试打印',pnl.Data<TestData>().name)
-            pnl.Data<TestData>().name = '123'
+      {...otherprops}
+        className="EquipShopCard"
+        style={{
+            width:`120px`,
+            height:`330px`,
         }}
     >
-
+        <ItemButton
+            itemName="test_weapon"
+        >
+        </ItemButton>
+        <MoneyLabel
+            money_num={60}
+            style={{
+                width:'90%',
+                height:'40px',
+            }}
+        ></MoneyLabel>
+        <TButton
+            text={'购买'}
+            style={{
+                width:'90%',
+                height:'40px',
+            }}
+        >
+        </TButton>
     </Panel>
 }
 

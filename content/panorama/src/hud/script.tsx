@@ -10,7 +10,7 @@ console.log(`content/panorama/src/hud/script.tsx -> 以下代码均为示例代�
 /** 隐藏一些默认的UI元素 */
 import '../utils/hide-default-hud';
 
-import { type FC } from 'react';
+import { useMemo, type FC } from 'react';
 import { render } from 'react-panorama-x';
 import { PanoramaQRCode } from '../utils/react-panorama-qrcode';
 import { DispatchEventAction, FunctionAction, RunSequentialActions, WaitAction } from '../utils/sequential-actions';
@@ -48,6 +48,10 @@ const Root: FC = () => {
 
     // 当按下D时，会使二维码放大1.5倍，在这里作为一个在react中使用按键hook的示例
     const dPressed = useKeyPressed(`D`);
+
+    useMemo(() =>{
+        GameEvents.SendCustomGameEventToServer('client_select_difficulty_event',{difficulty:1})
+    },[])
 
     return (
         <>
