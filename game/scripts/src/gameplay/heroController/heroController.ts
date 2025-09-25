@@ -31,11 +31,11 @@ export namespace heroController {
             this.freshCount = new Map();
         }
 
-        fresh(player: CDOTAPlayerController) {
+        fresh(player: CDOTAPlayerController, cost: number = 0) {
             const count = this.freshCount.get(player) ?? 0;
             if (count <= 0) return;
 
-            this.freshCount.set(player, count - 1);
+            this.freshCount.set(player, count - cost);
 
             const array = this.randomHeroList();
             this.playerHeroList.set(player, array);
