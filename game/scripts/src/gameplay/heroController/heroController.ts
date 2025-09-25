@@ -1,13 +1,23 @@
 import { Singleton } from '../../core/singleton/singleton';
+import { utils } from '../../core/utils/utils';
 import { Character } from '../character/character';
 import { eventEmitterBase } from '../eventEmitterBase/eventEmitterBase';
 import { cfgHeroList } from '../global/global';
+import { itemMarket } from '../marketController/itemMarket';
+import { eMarketType } from '../marketController/marketBase';
+import { Player } from '../playerController/player';
 import { playerController } from '../playerController/playerController';
 import { roundController } from '../roundController/roundController';
 
 interface emiiter {}
 
 export namespace heroController {
+    const rule = [
+        { property: 1, count: 1 },
+        { property: 2, count: 1 },
+        { property: 3, count: 1 },
+    ];
+
     export class controller extends eventEmitterBase<emiiter> {
         private heroCount: number;
         private playerHeroList: Map<CDOTAPlayerController, number[]>;
@@ -53,17 +63,42 @@ export namespace heroController {
                     is_main: true,
                 });
 
-                this.playerSelectEventHandler();
+                this.playerSelectEventHandler(player);
             }
         }
 
-        private randomHeroList(): number[] {
-            return [];
+        randomHeroList(): number[] {
+            const val: number[] = [];
+            const temp = utils.kvToArray(cfgHeroList);
+
+            for (let i = 0; i < rule.length; i++) {
+                let allWeight = 0;
+                let curWeight = 0;
+                let count = 0;
+                const temp2 = temp.filter(e => e.property == rule[i].property);
+
+                for (let j = 0; j < temp2.length; j++) {
+                    const e = temp2[j];
+                    allWeight += e.weight;
+                }
+                const curRandom = RandomInt(1, allWeight);
+                for (let v = 0; v < temp2.length; v++) {
+                    curWeight += temp2[v].weight;
+                    if (curWeight <= curRandom && count < rule[i].count) {
+                        count++;
+                        val.push(tonumber(temp2[v].id));
+                    }
+                }
+            }
+
+            return val;
         }
 
         // 注册事件 并且当所有玩家选择英雄后触发
-        playerSelectEventHandler() {
+        playerSelectEventHandler(player: CDOTAPlayerController) {
             this.heroCount++;
+
+            Player.getPlayer(player).market.set(eMarketType.market, new itemMarket(player));
 
             if (this.heroCount >= playerController.getAllPlayers().length) {
                 roundController.instance().ready();

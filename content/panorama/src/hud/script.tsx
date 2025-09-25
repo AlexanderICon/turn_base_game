@@ -31,7 +31,8 @@ registerCustomKey('F');
 setKeyDownCallback('F', () => {
     console.log(`按下了F键!!`);
     // GameEvents.SendCustomGameEventToServer('c2s_test_event', { key: 'F' });
-    GameEvents.SendCustomGameEventToServer('client_select_difficulty_event', { difficulty: 1 });
+    // GameEvents.SendCustomGameEventToServer('client_select_difficulty_event', { difficulty: 1 });
+    GameEvents.SendCustomGameEventToServer('client_fresh_player_select_hero_list', {});
 });
 const Root: FC = () => {
     const url = `https://github.com/XavierCHN/x-template`;

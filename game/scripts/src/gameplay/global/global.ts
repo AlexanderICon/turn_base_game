@@ -1,6 +1,8 @@
 import * as globals from '../../json/globals.json';
 import * as difficulty from '../../json/difficulty.json';
 import * as heroList from '../../json/heroControllerList.json';
+import * as marketResource from '../../json/market_level_resource.json';
 export const cfgGlobal = globals;
 export const cfgDifficulty = difficulty;
 export const cfgHeroList = heroList;
+export const cfgMarketResource = marketResource;

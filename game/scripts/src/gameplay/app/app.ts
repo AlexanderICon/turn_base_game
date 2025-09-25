@@ -1,5 +1,8 @@
 import { Singleton } from '../../core/singleton/singleton';
+import { utils } from '../../core/utils/utils';
 import { gameController } from '../gameConroller/gameController';
+import { cfgHeroList } from '../global/global';
+import { heroController } from '../heroController/heroController';
 import { roundController } from '../roundController/roundController';
 
 require('../character/character');

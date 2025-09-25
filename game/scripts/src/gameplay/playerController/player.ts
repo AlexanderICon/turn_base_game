@@ -1,3 +1,5 @@
+import { eMarketType, market } from '../marketController/marketBase';
+
 const map = new Map<CDOTAPlayerController, Player>();
 
 export enum eAttribute {
@@ -28,11 +30,15 @@ export class Player {
 
     private _player: CDOTAPlayerController;
     private _attribute: Map<eAttribute, number> = new Map();
+    private _market: Map<eMarketType, market> = new Map();
 
     constructor(player: CDOTAPlayerController) {
         this._player = player;
-
         map.set(player, this);
+    }
+
+    public get market() {
+        return this._market;
     }
 
     getAttribute(attr: eAttribute): number {
