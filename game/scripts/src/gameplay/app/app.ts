@@ -2,7 +2,7 @@ import { Singleton } from '../../core/singleton/singleton';
 import { gameController } from '../gameConroller/gameController';
 import { roundController } from '../roundController/roundController';
 
-require('../character/character')
+require('../character/character');
 require('../serverManager/serverManager');
 require('../../core/dump/dump');
 
@@ -11,7 +11,7 @@ export namespace app {
         constructor() {
             print('进入了游戏入口 开始游戏逻辑', IsServer());
             // CustomNetTables.SetTableValue('custom_net_table_1','key_1',999)
-            roundController.instance().ready()
+            // roundController.instance().ready();
             gameController.instance().start(); // 游戏开始
             // roundController.instance().ready();
         }

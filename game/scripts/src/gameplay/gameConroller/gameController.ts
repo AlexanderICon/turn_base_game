@@ -1,4 +1,5 @@
 import { Singleton } from '../../core/singleton/singleton';
+import { difficultyController } from '../difficultyController/difficultyController';
 import { eventEmitterBase } from '../eventEmitterBase/eventEmitterBase';
 import { playerController } from '../playerController/playerController';
 
@@ -42,6 +43,8 @@ export namespace gameController {
 
         selectEvent() {
             const player = playerController.getAllPlayers().sort((a, b) => a.GetPlayerID() - b.GetPlayerID())[0];
+            difficultyController.instance().current = 1;
+
             // todo: 玩家选择难度
         }
 

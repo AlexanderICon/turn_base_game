@@ -10,6 +10,11 @@ declare interface XNetTableDefinitions {
     settings: {
         basicSettings: BasicSettings;
     };
+
+    // 玩家资源属性
+    player_resource: {
+        [key: string]: any;
+    };
 }
 
 declare interface BasicSettings {}
