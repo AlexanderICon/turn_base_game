@@ -75,14 +75,24 @@ const HeroChoosePanel:FC<PanelAttributes> = (props) =>{
     // })
     useGameEvent('server_to_client_player_hero_list',(data) =>{
         //const dataArray = new Array;
-        const dataArray = data.ids as Array<number>
-        const newArray = dataArray.map((value,idx) =>{
-            const heroName = HeroChooseConfig.GetData(value.toString()).key
-            return {name:heroName,id:value}
+        const dataArray = new Array
+        for(const [k,v] of Object.entries(data.ids)){
+            dataArray.push({id:k,data:v});
+        }
+        dataArray.sort((a,b) =>{
+            return a.id - b.id;
         })
+        //const dataArray = data.ids as Array<number>
+        const newArray = dataArray.map((value,idx) =>{
+            const heroName = HeroChooseConfig.GetData(value.data.toString()).key
+            return {name:heroName,id:value.data}
+        })
+        setHeroList(newArray)
     })
     useGameEvent('server_to_client_player_free_fresh_list',(data)=>{
+        console.log('刷新次数变更',data.count)
         setFreeRefresh(data.count);
+
     })
 
     function testRefresh(){
