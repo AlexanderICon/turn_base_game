@@ -3,7 +3,7 @@ import { difficultyController } from '../difficultyController/difficultyControll
 import { eventEmitterBase } from '../eventEmitterBase/eventEmitterBase';
 import { gameController } from '../gameConroller/gameController';
 import { cfgGlobal } from '../global/global';
-import { Player } from '../playerController/player';
+import { eAttribute, Player } from '../playerController/player';
 import { playerController } from '../playerController/playerController';
 
 import * as round from '../../json/roundConfig.json';
