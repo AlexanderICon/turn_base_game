@@ -81,6 +81,9 @@ const HeroChoosePanel:FC<PanelAttributes> = (props) =>{
             return {name:heroName,id:value}
         })
     })
+    useGameEvent('server_to_client_player_free_fresh_list',(data)=>{
+        setFreeRefresh(data.count);
+    })
 
     function testRefresh(){
         const newList = new Array;
