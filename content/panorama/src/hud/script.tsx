@@ -31,7 +31,7 @@ registerCustomKey('F');
 setKeyDownCallback('F', () => {
     console.log(`按下了F键!!`);
     // GameEvents.SendCustomGameEventToServer('c2s_test_event', { key: 'F' });
-    GameEvents.SendCustomGameEventToServer('game_event_select_difficulty', { difficulty: 1 });
+    GameEvents.SendCustomGameEventToServer('client_select_difficulty_event', { difficulty: 1 });
 });
 const Root: FC = () => {
     const url = `https://github.com/XavierCHN/x-template`;
@@ -48,16 +48,14 @@ const Root: FC = () => {
     // 当按下D时，会使二维码放大1.5倍，在这里作为一个在react中使用按键hook的示例
     const dPressed = useKeyPressed(`D`);
 
-        return(
-    <>
-        <MainPanel>
-
-        </MainPanel>
-        {/* <LoginPanel></LoginPanel>
+    return (
+        <>
+            <MainPanel></MainPanel>
+            {/* <LoginPanel></LoginPanel>
         <DifficultChoosePanel></DifficultChoosePanel> */}
-        <HeroChoosePanel></HeroChoosePanel>
-    </>
-    )
+            <HeroChoosePanel></HeroChoosePanel>
+        </>
+    );
 };
 
 render(<Root />, $.GetContextPanel());

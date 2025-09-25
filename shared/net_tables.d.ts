@@ -23,4 +23,8 @@ declare interface CustomNetTableDeclarations {
         round: { round: number };
         state: { state: number };
     };
+
+    server_difficulty: {
+        current: { current: number };
+    };
 }

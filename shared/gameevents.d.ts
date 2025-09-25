@@ -8,24 +8,25 @@ declare interface CustomGameEventDeclarations {
         foo: number;
         bar: string;
     };
-    player_select_hero_event: { list: string[] };
-    player_select_hero_by_index: { index: number };
-    game_event_select_difficulty: { difficulty: number };
+    client_select_difficulty_event: { difficulty: number }; // todo : 客户端选择难度
 
+    server_to_client_player_hero_list: { ids: number[] }; // 向客户端发送随机英雄列表
+    server_to_client_player_free_fresh_list: { count: number }; // 向客户端发送免费刷新次数
+    client_player_select_hero_by_id: { id: number }; // 客户端选择英雄
+    client_fresh_player_select_hero_list: {}; // 客户端刷新事件
 
+    c2s_login_event: {
+        event_key: string;
+        event_data: any;
+    };
 
-    c2s_login_event :{
-        event_key:string,
-        event_data:any,
-    }
+    c2s_difficult_event: {
+        event_key: string;
+        event_data: any;
+    };
 
-    c2s_difficult_event :{
-        event_key:string,
-        event_data:any,
-    }
-
-    s2c_custom_event:{
-        event_key:string,
-        event_data:any,
-    }
+    s2c_custom_event: {
+        event_key: string;
+        event_data: any;
+    };
 }
