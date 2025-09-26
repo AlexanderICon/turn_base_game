@@ -15,9 +15,10 @@ type round = {
 
 export namespace roundController {
     enum state {
-        ready,
-        start,
-        finish,
+        ready = 0,
+        start = 1,
+        challengReady = 3,
+        finish = 2,
     }
 
     interface emitter {}
@@ -28,9 +29,14 @@ export namespace roundController {
         private _monsterArray: CDOTA_BaseNPC[] = [];
         private _challengTimerKey: string = '';
 
-        private getCurrentRoundConfig(): round {
+        constructor(){
+            super()
+            this.round = this._round + 1
+        }   
+
+     private getCurrentRoundConfig(): round {
             return (
-                round[(this._round + 1).toString()] ?? { challengTime: cfgGlobal.defaultChallengTime, monsterId: cfgGlobal.defaultMonsterChallengId }
+                round[this._round.toString()] ?? { challengTime: cfgGlobal.defaultChallengTime, monsterId: cfgGlobal.defaultMonsterChallengId }
             );
         }
 
@@ -48,12 +54,12 @@ export namespace roundController {
         ready() {
             // todo : 如果是最大波次,那么直接进入胜利
             if (this._round >= difficultyController.instance().max) {
-                this._state = state.finish;
+                this.state = state.finish;
                 gameController.instance().victory();
                 return;
             }
 
-            this._state = state.ready;
+            this.state = state.ready;
 
             // 进入准备状态
             let curInterval: number = cfgGlobal.defaultRoundTime;
@@ -105,7 +111,7 @@ export namespace roundController {
 
         // 开始阶段
         private start() {
-            this._state = state.start;
+            this.state = state.challengReady;
             print('开始阶段');
 
             // todo :所有玩家英雄移动到副本点
@@ -117,15 +123,20 @@ export namespace roundController {
         }
 
         private createMonster() {
+            this.state = state.start
+
             const cfg = this.getCurrentRoundConfig();
 
             this._monsterArray = [];
 
             // 开启一个计时器
-            let currentChallengInterval = cfg.challengTime;
+            let currentChallengInterval = 5//cfg.challengTime;
+
+                CustomNetTables.SetTableValue('server_round_ready', 'ready_time', { time: currentChallengInterval });
 
             this._challengTimerKey = Timers.CreateTimer(1, () => {
                 currentChallengInterval--;
+                CustomNetTables.SetTableValue('server_round_ready', 'ready_time', { time: currentChallengInterval });
 
                 if (currentChallengInterval <= 0) {
                     // todo : 开始进入游戏惩罚阶段
@@ -138,7 +149,8 @@ export namespace roundController {
         }
 
         nextRound() {
-            this._round++;
+            // this.round++;
+            this.round = this._round + 1
             print('进入下一回合');
 
             this.settlePlayerResource();

@@ -1,11 +1,12 @@
 import { FC, useEffect, useState } from "react";
 import { PanelAttributes } from "react-panorama-x";
 import { EquipTable } from "../../ui_table/equipTable";
+import { MarketConfig } from "../../ui_table/marketTable";
 
 
 interface ItemButtonProps {
     itemName?:string,
-    imgType?:'Dota_Ability' | 'Dota_Item' | 'Dota_Hero' | 'Custom',
+    imgType?:'Dota_Ability' | 'Dota_Item' | 'Dota_Hero' | 'Custom' | 'Market_Item' | string,
 }
 
 const ItemButton:FC<ItemButtonProps & PanelAttributes> = (props) =>{
@@ -47,6 +48,12 @@ const ItemButton:FC<ItemButtonProps & PanelAttributes> = (props) =>{
             }
             case 'Dota_Hero':{
                 changeVisible(2)
+                break
+            }
+            case 'Market_Item':{
+                changeVisible(3)
+                const curItemIcon = MarketConfig.GetItemIcon(name)
+                setItemImg(curItemIcon);
                 break
             }
             default:{

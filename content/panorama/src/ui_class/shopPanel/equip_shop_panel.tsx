@@ -6,6 +6,9 @@ import MoneyLabel from "../common/moneyLabel";
 import TButton from "../common/textButton";
 import { ShopCard } from "./base_shop_panel";
 import useToggle from "../../hooks/useToggle";
+import { useXNetTableEvent, useXNetTableKey } from "../../hooks/useXNetTable";
+import { MarketConfig } from "../../ui_table/marketTable";
+import { utils } from "../../utils/util";
 
 
 
@@ -13,6 +16,20 @@ const EquipShop:FC<PanelAttributes> = (props) =>{
     const [visible,toggleVisible,setVisible] = useToggle(props.visible);
     const [sellList,setSellList] = useState(new Array); 
     const [shopLv,setShopLv] = useState(1)
+
+    const shopData = useXNetTableKey('market_base','item',{list:[]})
+
+    useEffect(() =>{
+        const dataList = shopData.list
+        console.log('商店刷新')
+        const dataArray = Object.entries(dataList).map((dt,idx) =>{
+            return {id:dt[1]}
+        })
+        // dataList.map((dt,idx) =>{
+        //     return {id:dt}
+        // })
+        setSellList(dataArray)
+    },[shopData])
 
     useMemo(() =>{
         setSellList([1,2,3,4])
@@ -24,6 +41,22 @@ const EquipShop:FC<PanelAttributes> = (props) =>{
                 setVisible(false)
             }
     },[props.visible])
+
+    function renderShopList(idx:number,dt:any){
+        const itemData = MarketConfig.GetItemData(dt.id);
+        return <ShopCard
+            sell_item={dt.id}
+            item_type="Market_Item"
+        >   
+        </ShopCard>
+    }
+
+    function refreshShop(){
+        GameEvents.SendCustomGameEventToServer('client_market_fresh',{tag:'market'})
+    }
+    function upgradeShop(){
+        GameEvents.SendCustomGameEventToServer('client_market_level_up',{tag:'market'})
+    }
 
     return (<Panel
         className="NormalPanel"
@@ -61,13 +94,7 @@ const EquipShop:FC<PanelAttributes> = (props) =>{
                     width:'75%',
                 }}
                 listArray={sellList}
-                renderFunction={(idx,dt) =>{
-                    return <ShopCard
-
-                    >
-
-                    </ShopCard>
-                }}
+                renderFunction={renderShopList}
                 id='EquipShopList'
             >
             </ListPanel>
@@ -91,6 +118,7 @@ const EquipShop:FC<PanelAttributes> = (props) =>{
                     width:'130px',
                     height:'40px',
                 }}
+                onactivate={upgradeShop}
                 ></TButton>
                 <MoneyLabel
                     style={{
@@ -119,6 +147,7 @@ const EquipShop:FC<PanelAttributes> = (props) =>{
                     width:'130px',
                     height:'40px',
                 }}
+                onactivate={refreshShop}
             ></TButton>
                 <MoneyLabel
                     style={{

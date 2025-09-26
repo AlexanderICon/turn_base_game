@@ -7,7 +7,7 @@ import { investmentController, strInvestmentKey } from '../investmentController/
 import { abilityMarket } from '../marketController/abililtyMarket';
 import { itemMarket } from '../marketController/itemMarket';
 import { eMarketType } from '../marketController/marketBase';
-import { Player } from '../playerController/player';
+import { eAttribute, Player } from '../playerController/player';
 import { playerController } from '../playerController/playerController';
 import { roundController } from '../roundController/roundController';
 

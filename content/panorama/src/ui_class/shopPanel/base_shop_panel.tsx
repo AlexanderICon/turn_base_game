@@ -29,7 +29,8 @@ const ShopCard:FC<PanelAttributes & ShopCardAttribute> = (props) =>{
         }}
     >
         <ItemButton
-            itemName="test_weapon"
+            imgType={item_type}
+            itemName={sell_item}
         >
         </ItemButton>
         <MoneyLabel

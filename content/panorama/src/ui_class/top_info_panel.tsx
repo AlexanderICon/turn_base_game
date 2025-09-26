@@ -24,11 +24,13 @@ const TopInfoPanel:FC<PanelAttributes> = (props) =>{
         }
     },[serverRoundTime])
     useEffect(() =>{
+        console.log('回合轮次变动')
         if(serverRoundNum!=undefined){
             setRound(serverRoundNum.round);
         }
     },[serverRoundNum])
     useEffect(() =>{
+        console.log('回合状态变动')
         if(serverRoundState!=undefined){
             switch(serverRoundState.state){
                 case 0:{
@@ -41,6 +43,10 @@ const TopInfoPanel:FC<PanelAttributes> = (props) =>{
                 }
                 case 2:{
                      setStateStr('游戏结束');
+                    break
+                }
+                case 3:{
+                     setStateStr('ready challeng');
                     break
                 }
                 default:{

@@ -16,7 +16,7 @@
 	"2" {
 		"key" "normalAttack2"
 		"name" "market_item_CN_normalAttack2"
-		"icon" "test_gloves.png"
+		"icon" "test_weapon.png"
 		"level" "1"
 		"weight" "10"
 		"tag" "market"
@@ -24,7 +24,7 @@
 	"3" {
 		"key" "normalAttack3"
 		"name" "market_item_CN_normalAttack3"
-		"icon" "test_gloves.png"
+		"icon" "test_helmet.png"
 		"level" "1"
 		"weight" "1"
 		"tag" "market"
@@ -40,7 +40,7 @@
 	"5" {
 		"key" "normalAttack5"
 		"name" "market_item_CN_normalAttack5"
-		"icon" "test_gloves.png"
+		"icon" "test_shoes.png"
 		"level" "1"
 		"weight" "1"
 		"tag" "market"
@@ -48,7 +48,7 @@
 	"6" {
 		"key" "normalAttack6"
 		"name" "market_item_CN_normalAttack6"
-		"icon" "test_gloves.png"
+		"icon" "test_ring.png"
 		"level" "1"
 		"weight" "1"
 		"tag" "market"
@@ -56,7 +56,7 @@
 	"7" {
 		"key" "normalAttack7"
 		"name" "market_item_CN_normalAttack7"
-		"icon" "test_gloves.png"
+		"icon" "test_pendant.png"
 		"level" "1"
 		"weight" "1"
 		"tag" "market"
