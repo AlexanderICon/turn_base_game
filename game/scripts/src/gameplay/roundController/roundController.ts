@@ -92,7 +92,7 @@ export namespace roundController {
                 Player.settleAttribute(
                     e,
                     eAttribute.currentGold,
-                    10000,
+                    player.getAttribute(eAttribute.roundGold),
                     player.getAttribute(eAttribute.goldRate)
                 );
 

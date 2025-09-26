@@ -16,7 +16,7 @@ const SkillShopPanel:FC<PanelAttributes> = (props) =>{
     const [shopLv,setShopLv] = useState(1)
 
 
-    const shopData = useXNetTableKey('market_base','item',{list:[]})
+    const shopData = useXNetTableKey('market_base','ability',{list:[]})
     
     useEffect(() =>{
             const dataList = shopData.list
@@ -43,10 +43,10 @@ const SkillShopPanel:FC<PanelAttributes> = (props) =>{
         }
     
         function refreshShop(){
-            GameEvents.SendCustomGameEventToServer('client_market_fresh',{tag:'market'})
+            GameEvents.SendCustomGameEventToServer('client_market_fresh',{tag:'ability'})
         }
         function upgradeShop(){
-            GameEvents.SendCustomGameEventToServer('client_market_level_up',{tag:'market'})
+            GameEvents.SendCustomGameEventToServer('client_market_level_up',{tag:'ability'})
         }  
 
 
