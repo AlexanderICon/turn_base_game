@@ -29,3 +29,14 @@ CustomGameEventManager.RegisterListener('client_market_level_up', (_, e) => {
             break;
     }
 });
+
+CustomGameEventManager.RegisterListener('client_market_fresh', (_, e) => {
+    switch (e.tag) {
+        case 'market':
+            Player.getPlayer(playerController.getPlayer(e.PlayerID)).market.get(eMarketType.market)?.random();
+            break;
+        case 'ability':
+            Player.getPlayer(playerController.getPlayer(e.PlayerID)).market.get(eMarketType.ability)?.random();
+            break;
+    }
+});

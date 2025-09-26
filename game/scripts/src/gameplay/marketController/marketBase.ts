@@ -1,5 +1,5 @@
-import { utils } from '../../core/utils/utils';
-import { cfgGlobal, cfgMarketResource } from '../global/global';
+import { utils, weightCfg } from '../../core/utils/utils';
+import { cfgGlobal, cfgMarketItem, cfgMarketResource } from '../global/global';
 import { eAttribute, Player } from '../playerController/player';
 
 export enum eMarketType {
@@ -10,19 +10,30 @@ export enum eMarketType {
 export enum eErrorMessage {
     noResource = '升级失败,资源不足',
     noEnoughArrayLength = '获取配置表失败',
+    noEnoughCount = '配置表数据不足',
 }
+
+type marketItem = {
+    key: string;
+    name: string;
+    icon: string;
+    level: number;
+    tag: string;
+} & weightCfg;
 
 export abstract class market {
     protected _list: number[];
     protected _level: number;
     protected _tag: eMarketType;
     protected _pause: boolean;
+    protected _count: number;
 
     constructor(e: eMarketType) {
         this._list = [];
         this._level = 0;
         this._tag = e;
         this._pause = false;
+        this._count = 4;
     }
 
     protected getMaxLevel(): number {
@@ -49,9 +60,18 @@ export abstract class market {
         }
     }
 
-    protected getCfg() {
+    protected getResourceCfg() {
         const array = utils.kvToArray(cfgMarketResource);
         return array.filter(e => e.tag == this._tag);
+    }
+
+    protected getContentCfg(level: number) {
+        switch (this._tag) {
+            case eMarketType.market:
+                return utils.kvToArray<marketItem>(cfgMarketItem).filter(e => e.tag == eMarketType.market && level >= e.level);
+            case eMarketType.ability:
+                return utils.kvToArray<marketItem>(cfgMarketItem).filter(e => e.tag == eMarketType.ability && level >= e.level);
+        }
     }
 
     setPause() {
@@ -71,16 +91,14 @@ export abstract class market {
     // 回合结束时触发
     onRoundFinish() {
         if (this._pause) return;
-
-        this._list = this.random(this._level);
-        this.onRandomSuccess();
+        this.random();
     }
 
     abstract upFilter(): boolean;
 
     abstract onUpSuccess(): void; // 成功升级时触发
     abstract onRandomSuccess(): void; // 成功刷新时触发
-    abstract random(level: number): number[]; // 刷新数据
+    abstract random(level?: number): number[]; // 刷新数据
 }
 
 export class itemMarketBase extends market {
@@ -92,7 +110,7 @@ export class itemMarketBase extends market {
     }
 
     upFilter(): boolean {
-        const cfg = this.getCfg();
+        const cfg = this.getResourceCfg();
 
         if (cfg.length <= 0) {
             print(eErrorMessage.noEnoughArrayLength);
@@ -118,7 +136,30 @@ export class itemMarketBase extends market {
 
     onRandomSuccess(): void {}
 
-    random(level: number): number[] {
-        return [];
+    random(level?: number): number[] {
+        const cur = level ? level + 1 : this._level + 1;
+        const cfgArray = this.getContentCfg(cur);
+        if (cfgArray.length <= 0) {
+            print(eErrorMessage.noEnoughArrayLength);
+            return;
+        }
+
+        if (cfgArray.length <= this._count - 1) {
+            print(eErrorMessage.noEnoughCount);
+            return;
+        }
+
+        const list: number[] = [];
+        while (list.length <= this._count - 1) {
+            const val = utils.getRandomByWeight(cfgArray);
+
+            if (!list.includes(tonumber(val.id))) {
+                list.push(tonumber(val.id));
+            }
+        }
+
+        this._list = list;
+        this.onRandomSuccess();
+        return list;
     }
 }

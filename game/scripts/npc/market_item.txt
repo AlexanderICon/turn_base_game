@@ -11,6 +11,7 @@
 		"icon" "test_gloves.png"
 		"level" "1"
 		"weight" "10"
+		"tag" "market"
 	}
 	"2" {
 		"key" "normalAttack2"
@@ -18,5 +19,46 @@
 		"icon" "test_gloves.png"
 		"level" "1"
 		"weight" "10"
+		"tag" "market"
+	}
+	"3" {
+		"key" "normalAttack3"
+		"name" "market_item_CN_normalAttack3"
+		"icon" "test_gloves.png"
+		"level" "1"
+		"weight" "1"
+		"tag" "market"
+	}
+	"4" {
+		"key" "normalAttack4"
+		"name" "market_item_CN_normalAttack4"
+		"icon" "test_gloves.png"
+		"level" "1"
+		"weight" "1"
+		"tag" "market"
+	}
+	"5" {
+		"key" "normalAttack5"
+		"name" "market_item_CN_normalAttack5"
+		"icon" "test_gloves.png"
+		"level" "1"
+		"weight" "1"
+		"tag" "market"
+	}
+	"6" {
+		"key" "normalAttack6"
+		"name" "market_item_CN_normalAttack6"
+		"icon" "test_gloves.png"
+		"level" "1"
+		"weight" "1"
+		"tag" "market"
+	}
+	"7" {
+		"key" "normalAttack7"
+		"name" "market_item_CN_normalAttack7"
+		"icon" "test_gloves.png"
+		"level" "1"
+		"weight" "1"
+		"tag" "market"
 	}
 }

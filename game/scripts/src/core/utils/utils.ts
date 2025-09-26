@@ -10,4 +10,27 @@ export class utils {
             ...value,
         }));
     }
+
+    /**
+     * 按照权重随机返回一个配置项
+     */
+    static getRandomByWeight<T extends { weight: number }>(items: T[]): T {
+        const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
+        const rand = RandomFloat(0, 1) * totalWeight;
+
+        let cumulative = 0;
+        for (const item of items) {
+            cumulative += item.weight;
+            if (rand < cumulative) {
+                return item;
+            }
+        }
+
+        // 理论上不会到这里
+        return items[items.length - 1];
+    }
 }
+
+export type weightCfg = {
+    weight: number;
+};

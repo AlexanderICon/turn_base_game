@@ -15,6 +15,11 @@ declare interface XNetTableDefinitions {
     player_resource: {
         [key: string]: any;
     };
+
+    market_base: {
+        item: { list: number[] };
+        ability: { list: number[] };
+    };
 }
 
 declare interface BasicSettings {}

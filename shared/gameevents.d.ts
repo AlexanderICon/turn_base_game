@@ -16,6 +16,7 @@ declare interface CustomGameEventDeclarations {
     client_fresh_player_select_hero_list: {}; // 客户端刷新事件
 
     client_market_level_up: { tag: 'market' | 'ability' };
+    client_market_fresh: { tag: 'market' | 'ability' };
 
     c2s_login_event: {
         event_key: string;
