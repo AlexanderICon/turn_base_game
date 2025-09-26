@@ -33,10 +33,10 @@ export namespace roundController {
             super()
             this.round = this._round + 1
         }   
-
+        
      private getCurrentRoundConfig(): round {
             return (
-                round[this._round.toString()] ?? { challengTime: cfgGlobal.defaultChallengTime, monsterId: cfgGlobal.defaultMonsterChallengId }
+                round[(this._round).toString()] ?? { challengTime: cfgGlobal.defaultChallengTime, monsterId: cfgGlobal.defaultMonsterChallengId }
             );
         }
 
@@ -92,7 +92,7 @@ export namespace roundController {
                 Player.settleAttribute(
                     e,
                     eAttribute.currentGold,
-                    player.getAttribute(eAttribute.roundGold),
+                    10000,
                     player.getAttribute(eAttribute.goldRate)
                 );
 

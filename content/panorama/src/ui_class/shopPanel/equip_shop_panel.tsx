@@ -21,19 +21,11 @@ const EquipShop:FC<PanelAttributes> = (props) =>{
 
     useEffect(() =>{
         const dataList = shopData.list
-        console.log('商店刷新')
         const dataArray = Object.entries(dataList).map((dt,idx) =>{
             return {id:dt[1]}
         })
-        // dataList.map((dt,idx) =>{
-        //     return {id:dt}
-        // })
         setSellList(dataArray)
     },[shopData])
-
-    useMemo(() =>{
-        setSellList([1,2,3,4])
-    },[])
     useEffect(() =>{
             if(props.visible!=undefined){
                 setVisible(props.visible);

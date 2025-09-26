@@ -7,14 +7,16 @@
 {
 	"1" {
 		"key" "gold"
+		"icon" "resource/gold.png"
 		"cost" "100"
-		"increase" "0"
+		"increase" "5"
 		"max" "10"
 	}
 	"2" {
 		"key" "lumber"
+		"icon" "resource/wood.png"
 		"cost" "100"
-		"increase" "0"
+		"increase" "5"
 		"max" "10"
 	}
 }

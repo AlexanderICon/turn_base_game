@@ -6,17 +6,20 @@ import TButton from "../common/textButton";
 import useToggle from "../../hooks/useToggle";
 import MoneyLabel from "../common/moneyLabel";
 import ItemButton from "../common/itemButton";
+import { InvestConfig } from "../../ui_table/investConfig";
+import { useXNetTableEvent } from "../../hooks/useXNetTable";
 
 interface InvestShopAttribute {
-    invest_type:string
+    invest_id:string
 }
 
 const InvsetShopCard:FC<PanelAttributes & InvestShopAttribute> = (props) =>{
     const {
-        invest_type,
+        invest_id,
         ...otherprops
     } = props
     const self = useRef(null)
+    
     // useEffect(() =>{
     //     if(self.current){
     //         const curSelf = self.current as Panel;
@@ -27,6 +30,35 @@ const InvsetShopCard:FC<PanelAttributes & InvestShopAttribute> = (props) =>{
     // },[])
     const [curInvest,setCurInvest] = useState(0)
     const [maxInvest,setMaxInvest] = useState(0)
+    //const [investData,setInvestData] = useState<any>()
+    const [investIcon,setInvestIcon] = useState('')
+    const [investCost,setInvestCost] = useState(0)
+
+    const investData = useRef<any>()
+    const investKey = useRef<string>('')
+
+    useEffect(() =>{
+        investData.current = InvestConfig.GetData(invest_id)
+        if(investData.current){
+            const curData = investData.current
+            setMaxInvest(curData.max)
+            investKey.current = curData.key
+            setInvestIcon(curData.icon)
+        }
+    },[invest_id])
+    useEffect(() =>{
+        if(investData.current){ 
+            const curData = investData.current
+            setInvestCost(curData.cost + curData.increase*curInvest)
+        }
+    },[curInvest])
+    useXNetTableEvent('investment',investKey.current,(data)=>{
+        setCurInvest(data);
+    })
+
+    function addInvest(){
+        GameEvents.SendCustomGameEventToServer('client_investment_event',{id:parseInt(invest_id)})
+    }
 
     return<Panel
         {...otherprops}
@@ -37,12 +69,17 @@ const InvsetShopCard:FC<PanelAttributes & InvestShopAttribute> = (props) =>{
             height:`330px`,
         }}
     >
-        <ItemButton
-            itemName="test_weapon"
-        >
-        </ItemButton>
+        <Image
+            style={{
+                width:'60px',
+                height:'60px',
+                horizontalAlign:'center',
+            }}
+            src={`file://{images}/${investIcon}`}
+        ></Image>
         <MoneyLabel
-            money_num={60}
+            money_num={investCost}
+            money_type="current_gold"
             style={{
                 width:'90%',
                 height:'40px',
@@ -58,11 +95,12 @@ const InvsetShopCard:FC<PanelAttributes & InvestShopAttribute> = (props) =>{
         >
         </Label>
         <TButton
-            text={'购买'}
+            text={'投资'}
             style={{
                 width:'90%',
                 height:'40px',
             }}
+            onactivate={addInvest}
         >
         </TButton>
     </Panel>
@@ -72,8 +110,11 @@ const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
     const [visible,toggleVisible,setVisible] = useToggle(props.visible);
     const [sellList,setSellList] = useState(new Array);
 
-    useMemo(() =>{
-        setSellList([1,2,3,4])
+    useMemo(() =>{   
+        InvestConfig.GetArray().map((value,idx)=>{
+            console.log(value)
+        })
+        setSellList(InvestConfig.GetArray())
     },[])
     useEffect(() =>{
             if(props.visible!=undefined){
@@ -82,6 +123,13 @@ const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
                 setVisible(false)
             }
     },[props.visible])
+
+    function renderInvestList(idx:number,dt:any) {
+        return <InvsetShopCard
+            invest_id={dt.id}
+        >
+        </InvsetShopCard>
+    }
 
     return (<Panel
         className="NormalPanel"
@@ -117,13 +165,7 @@ const InvestmentShopPanel:FC<PanelAttributes> = (props) =>{
                     height:'85%',
                 }}
                 listArray={sellList}
-                renderFunction={(idx,dt) =>{
-                    return <InvsetShopCard
-                        invest_type=""
-                    >
-
-                    </InvsetShopCard>
-                }}
+                renderFunction={renderInvestList}
                 id='EquipShopList'
                 // childHeight="100px"
                 // childWidth="100px"

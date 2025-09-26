@@ -6,6 +6,8 @@ import TButton from "../common/textButton";
 import useToggle from "../../hooks/useToggle";
 import classNames from "classnames";
 import MoneyLabel from "../common/moneyLabel";
+import { useXNetTableKey } from "../../hooks/useXNetTable";
+import { MarketConfig } from "../../ui_table/marketTable";
 
 
 const SkillShopPanel:FC<PanelAttributes> = (props) =>{
@@ -13,18 +15,40 @@ const SkillShopPanel:FC<PanelAttributes> = (props) =>{
     const [sellList,setSellList] = useState(new Array);
     const [shopLv,setShopLv] = useState(1)
 
-    
 
-    useMemo(() =>{
-        setSellList([1,2,3,4])
-    },[])
+    const shopData = useXNetTableKey('market_base','item',{list:[]})
+    
     useEffect(() =>{
-        if(props.visible!=undefined){
-            setVisible(props.visible);
-        }else{
-            setVisible(false)
+            const dataList = shopData.list
+            const dataArray = Object.entries(dataList).map((dt,idx) =>{
+                return {id:dt[1]}
+            })
+            setSellList(dataArray)
+        },[shopData])
+        useEffect(() =>{
+                if(props.visible!=undefined){
+                    setVisible(props.visible);
+                }else{
+                    setVisible(false)
+                }
+        },[props.visible])
+    
+        function renderShopList(idx:number,dt:any){
+            const itemData = MarketConfig.GetItemData(dt.id);
+            return <ShopCard
+                sell_item={dt.id}
+                item_type="Market_Item"
+            >   
+            </ShopCard>
         }
-    },[props.visible])
+    
+        function refreshShop(){
+            GameEvents.SendCustomGameEventToServer('client_market_fresh',{tag:'market'})
+        }
+        function upgradeShop(){
+            GameEvents.SendCustomGameEventToServer('client_market_level_up',{tag:'market'})
+        }  
+
 
     return (<Panel
         className="NormalPanel"
