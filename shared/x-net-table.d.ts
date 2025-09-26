@@ -16,6 +16,10 @@ declare interface XNetTableDefinitions {
         [key: string]: any;
     };
 
+    investment: {
+        [key: string]: number;
+    };
+
     market_base: {
         item: { list: number[] };
         ability: { list: number[] };

@@ -1,5 +1,6 @@
 import { difficultyController } from '../difficultyController/difficultyController';
 import { heroController } from '../heroController/heroController';
+import { strInvestmentKey } from '../investmentController/investmentController';
 import { eMarketType } from '../marketController/marketBase';
 import { Player } from '../playerController/player';
 import { playerController } from '../playerController/playerController';
@@ -22,10 +23,10 @@ CustomGameEventManager.RegisterListener('client_fresh_player_select_hero_list', 
 CustomGameEventManager.RegisterListener('client_market_level_up', (_, e) => {
     switch (e.tag) {
         case 'ability':
-            Player.getPlayer(playerController.getPlayer(e.PlayerID)).market.get(eMarketType.ability)?.upLevel();
+            Player.getPlayer(playerController.getPlayer(e.PlayerID)).object.get(eMarketType.ability)?.upLevel();
             break;
         case 'market':
-            Player.getPlayer(playerController.getPlayer(e.PlayerID)).market.get(eMarketType.market)?.upLevel();
+            Player.getPlayer(playerController.getPlayer(e.PlayerID)).object.get(eMarketType.market)?.upLevel();
             break;
     }
 });
@@ -33,10 +34,14 @@ CustomGameEventManager.RegisterListener('client_market_level_up', (_, e) => {
 CustomGameEventManager.RegisterListener('client_market_fresh', (_, e) => {
     switch (e.tag) {
         case 'market':
-            Player.getPlayer(playerController.getPlayer(e.PlayerID)).market.get(eMarketType.market)?.random();
+            Player.getPlayer(playerController.getPlayer(e.PlayerID)).object.get(eMarketType.market)?.random();
             break;
         case 'ability':
-            Player.getPlayer(playerController.getPlayer(e.PlayerID)).market.get(eMarketType.ability)?.random();
+            Player.getPlayer(playerController.getPlayer(e.PlayerID)).object.get(eMarketType.ability)?.random();
             break;
     }
+});
+
+CustomGameEventManager.RegisterListener('client_investment_event', (_, e) => {
+    Player.getPlayer(playerController.getPlayer(e.PlayerID)).object.get(strInvestmentKey)?.addLevel(e.id);
 });

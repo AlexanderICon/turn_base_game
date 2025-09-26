@@ -30,15 +30,23 @@ export class Player {
 
     private _player: CDOTAPlayerController;
     private _attribute: Map<eAttribute, number> = new Map();
-    private _market: Map<eMarketType, market> = new Map();
+    private _object: Map<string, any> = new Map();
 
     constructor(player: CDOTAPlayerController) {
         this._player = player;
         map.set(player, this);
     }
 
-    public get market() {
-        return this._market;
+    public get object() {
+        return this._object;
+    }
+
+    getBasePlayer() {
+        return this._player;
+    }
+
+    getPlayerId() {
+        return this._player.GetPlayerID();
     }
 
     getAttribute(attr: eAttribute): number {

@@ -18,6 +18,8 @@ declare interface CustomGameEventDeclarations {
     client_market_level_up: { tag: 'market' | 'ability' };
     client_market_fresh: { tag: 'market' | 'ability' };
 
+    client_investment_event: { id: number };
+
     c2s_login_event: {
         event_key: string;
         event_data: any;

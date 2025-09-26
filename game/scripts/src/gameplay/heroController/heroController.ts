@@ -3,6 +3,7 @@ import { utils } from '../../core/utils/utils';
 import { Character } from '../character/character';
 import { eventEmitterBase } from '../eventEmitterBase/eventEmitterBase';
 import { cfgHeroList } from '../global/global';
+import { investmentController, strInvestmentKey } from '../investmentController/investmentController';
 import { abilityMarket } from '../marketController/abililtyMarket';
 import { itemMarket } from '../marketController/itemMarket';
 import { eMarketType } from '../marketController/marketBase';
@@ -100,12 +101,16 @@ export namespace heroController {
             this.heroCount++;
 
             const playerInstance = Player.getPlayer(player);
-            if (!playerInstance.market.has(eMarketType.market)) {
-                playerInstance.market.set(eMarketType.market, new itemMarket(player, eMarketType.market));
+            if (!playerInstance.object.has(eMarketType.market)) {
+                playerInstance.object.set(eMarketType.market, new itemMarket(player, eMarketType.market));
             }
 
-            if (!playerInstance.market.has(eMarketType.ability)) {
-                playerInstance.market.set(eMarketType.ability, new abilityMarket(player, eMarketType.ability));
+            if (!playerInstance.object.has(eMarketType.ability)) {
+                playerInstance.object.set(eMarketType.ability, new abilityMarket(player, eMarketType.ability));
+            }
+
+            if (!playerInstance.object.has(strInvestmentKey)) {
+                playerInstance.object.set(strInvestmentKey, new investmentController(player));
             }
 
             if (this.heroCount >= playerController.getAllPlayers().length) {
